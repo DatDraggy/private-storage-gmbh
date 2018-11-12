@@ -1,7 +1,9 @@
 <?php 
 session_start();
 require_once("inc/config.inc.php");
+require_once("inc/shared.inc.php");
 require_once("inc/functions.inc.php");
+$pdo = buildDatabaseConnection($config); 
 
 $error_msg = "";
 if(isset($_POST['email']) && isset($_POST['passwort'])) {

@@ -1,16 +1,10 @@
 <?php
-/**
- * A complete login script with registration and members area.
- *
- * @author: Nils Reimers / http://www.php-einfach.de/experte/php-codebeispiele/loginscript/
- * @license: GNU GPLv3
- */
-include_once("password.inc.php");
+require_once("inc/config.inc.php");
+require_once("inc/shared.inc.php");
 
-/**
- * Checks that the user is logged in. 
- * @return Returns the row of the logged in user
- */
+include_once("password.inc.php");
+$pdo = buildDatabaseConnection($config); 
+
 function check_user() {
 	global $pdo;
 	

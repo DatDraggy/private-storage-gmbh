@@ -1,9 +1,10 @@
 <?php 
 session_start();
 require_once("inc/config.inc.php");
+require_once("inc/shared.inc.php");
 require_once("inc/functions.inc.php");
-
-include("templates/header.inc.php")
+include("templates/header.inc.php");
+$pdo = buildDatabaseConnection($config); 
 ?>
 <div class="container main-container registration-form">
 <h1>Registrierung</h1>
