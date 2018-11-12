@@ -1,17 +1,10 @@
 <?php 
-/**
- * Dies ist die Fußzeile eurer Seite. Gerne könnt ihr den 'Powered by'-Hinweis entfernen oder beliebig abändern.
- * Falls ihr unser Projekt auf www.php-einfach.de unterstützen möchtet, würde wir uns aber über eine 
- * Verlinkung sehr freuen.
- * 
- * @author: Nils Reimers / http://www.php-einfach.de/experte/php-codebeispiele/loginscript/
- * @license: GNU GPLv3
- */
+
 ?> 
  <hr>
   <div class="container">
   	<footer>
-        <p>Powered by <a href="http://www.php-einfach.de" target="_blank">PHP-Einfach.de</a></p>
+        <p>Powered by StorageGmbH</p>
       </footer>
    </div> 
 

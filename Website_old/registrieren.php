@@ -1,7 +1,8 @@
-<?php include('config.php'); ?>
 <?php 
+require_once('config.php');
+require_once('inc/shared.inc.php);
 session_start();
-#$pdo = new PDO('mysql:host=myadmin.kieran.de;dbname=storagegmbh', 'schule', 'jaymax552#');
+$pdo = buildDatabaseConnection($config); 
 ?>
 <!DOCTYPE html> 
 <html> 

@@ -12,8 +12,8 @@ include("templates/header.inc.php")
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Herzlich Willkommen bei StorageGmbH</h1>
-        <p></p>
+        <h1>Login</h1>
+        <p>Herzlich Willkommen</p>
         <p><a class="btn btn-primary btn-lg" href="register.php" role="button">Jetzt registrieren</a></p>
       </div>
     </div>
@@ -22,11 +22,11 @@ include("templates/header.inc.php")
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>Mieträme in unterschiedlichen Größen</h2>
+          <h2>Features</h2>
           <ul>
-          	<li>Registrierung & loslegen</li> 
-          	<li>Monatliche Laufzeit</li>
-          	<li>Bezahlung einfach per Lastschrift</li>
+          	<li>Registrierung & Login</li> 
+          	<li>Interner Mitgliederbereich</li>
+          	<li>Neues Zusenden eines Passworts</li>
           </ul>
         </div>
       </div>
