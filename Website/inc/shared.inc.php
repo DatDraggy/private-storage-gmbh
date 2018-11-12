@@ -19,3 +19,5 @@ function notifyOnException($subject, $config, $sql = '', $e = '') {
   log_($txt);
   die();
 }
+
+function log_($txt){}
