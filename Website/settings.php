@@ -71,7 +71,7 @@ $user = check_user();
 
 <div class="container main-container">
 
-<h1>Einstellungen</h1>
+<h1>Accountdaten</h1>
 
 <?php 
 if(isset($success_msg) && !empty($success_msg)):
@@ -100,6 +100,7 @@ endif;
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#data" aria-controls="home" role="tab" data-toggle="tab">Persönliche Daten</a></li>
+      <li role="presentation"><a href="#bank" aria-controls="profile" role="tab" data-toggle="tab">Bankverbindung</a></li>
     <li role="presentation"><a href="#email" aria-controls="profile" role="tab" data-toggle="tab">E-Mail</a></li>
     <li role="presentation"><a href="#passwort" aria-controls="messages" role="tab" data-toggle="tab">Passwort</a></li>
   </ul>
@@ -109,6 +110,14 @@ endif;
     <div role="tabpanel" class="tab-pane active" id="data">
     	<br>
     	<form action="?save=personal_data" method="post" class="form-horizontal">
+
+            <div class="form-group">
+                <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputFirma" name="firma" type="text" value="<?php echo htmlentities($user['firma']); ?>" required>
+                </div>
+            </div>
+
     		<div class="form-group">
     			<label for="inputVorname" class="col-sm-2 control-label">Vorname</label>
     			<div class="col-sm-10">
@@ -122,7 +131,35 @@ endif;
     				<input class="form-control" id="inputNachname" name="nachname" type="text" value="<?php echo htmlentities($user['nachname']); ?>" required>
     			</div>
     		</div>
-    		
+
+            <div class="form-group">
+                <label for="inputStrasse" class="col-sm-2 control-label">Straße</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputStrasse" name="strasse" type="text" value="<?php echo htmlentities($user['strasse']); ?>" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputHausnummer" class="col-sm-2 control-label">Hausnummer</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputHausnummer" name="hausnr" type="text" value="<?php echo htmlentities($user['hausnr']); ?>" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPlz" class="col-sm-2 control-label">Postleitzahl</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputPlz" name="plz" type="text" value="<?php echo htmlentities($user['plz']); ?>" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputOrt" class="col-sm-2 control-label">Ort</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputOrt" name="ort" type="text" value="<?php echo htmlentities($user['ort']); ?>" required>
+                </div>
+            </div>
+
     		<div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
 			      <button type="submit" class="btn btn-primary">Speichern</button>
@@ -130,7 +167,9 @@ endif;
 			</div>
     	</form>
     </div>
-    
+
+
+
     <!-- Änderung der E-Mail-Adresse -->
     <div role="tabpanel" class="tab-pane" id="email">
     	<br>
@@ -200,8 +239,6 @@ endif;
 			</div>
     	</form>
     </div>
-  </div>
-
 </div>
 
 

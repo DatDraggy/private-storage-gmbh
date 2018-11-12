@@ -57,7 +57,7 @@
         <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav navbar-right">     
          	<li><a href="internal.php">Interner Bereich</a></li>       
-            <li><a href="settings.php">Einstellungen</a></li>
+            <li><a href="settings.php">Persönlicher Bereich</a></li>
             <li><a href="logout.php">Logout</a></li>
           </ul>   
         </div><!--/.navbar-collapse -->
