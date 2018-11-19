@@ -21,7 +21,7 @@
 
         foreach($rows as $row) {
           $groesse = $row['groesse'];
-          $preis = $row['groesse'];
+          $preis = $row['preis'];
           ?>
           <div class="col-sm-4">
             <div class="plan">
