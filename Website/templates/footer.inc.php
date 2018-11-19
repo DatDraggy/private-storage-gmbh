@@ -9,7 +9,7 @@
       <div class="pricing row">
         <?php
         require_once(__DIR__ . '/../inc/shared.inc.php');
-        $dbConnection = buildDatabaseConnection();
+        $dbConnection = buildDatabaseConnection($config);
         try{
           $sql = "SELECT raeume.groesse, preis FROM raeume INNER JOIN preise ON raeume.groesse = preise.groesse GROUP BY raeume.groesse";
           $stmt = $dbConnection->prepare("SELECT raeume.groesse, preis FROM raeume INNER JOIN preise ON raeume.groesse = preise.groesse GROUP BY raeume.groesse");
