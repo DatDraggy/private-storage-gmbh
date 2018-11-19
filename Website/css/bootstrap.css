@@ -3459,6 +3459,12 @@ fieldset[disabled] .btn-link:focus {
   display: block;
   width: 100%;
 }
+
+.btn-block1 {
+  display: block;
+  width: 80%;
+}
+
 .btn-block + .btn-block {
   margin-top: 5px;
 }

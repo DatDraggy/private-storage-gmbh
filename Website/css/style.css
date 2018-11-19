@@ -36,7 +36,15 @@
   margin: 0 auto;
 }
 
+IMG.bestellen {
+	vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
 
+    max-width: 260px;
+	}
+
+	
 .small-container .small-container-heading,
 .small-container .checkbox {
   margin-bottom: 10px;
@@ -75,4 +83,85 @@
 
 .login {
 	color: #fff;
+}
+
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-control-placeholder {
+  position: absolute;
+  top: 0;
+  padding: 7px 0 0 13px;
+  transition: all 200ms;
+  opacity: 0.5;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+  font-size: 75%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+}
+
+.pricing {
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 10px;
+    display: block;
+}
+.pricing ul {
+    padding: 0
+}
+.pricing .btn {
+    margin: 0;
+}
+.pricing .plan {
+    border: 1px solid rgba(0,0,0,0.11);
+    background: #fff;
+}
+.pricing .plan h3 {
+    font-size: 18px;
+    line-height: 40px;
+    margin: 0;
+    padding: 10px 0 0 0;
+    color: #2e2e2e;
+}
+.pricing .plan h4 {
+    padding: 0 0 20px 0;
+    margin: 0 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.11);
+}
+.pricing .plan h4 span {
+    color: #549dc5
+}
+.pricing .plan h4 .amount {
+    display: block;
+    text-align: center;
+}
+.pricing .plan h4 .amount {
+    font-size: 45px;
+    padding-bottom: 10px;
+}
+.pricing .plan h4 .amount span {
+    vertical-align: super;
+    font-size: 20px;
+    font-weight: 400;
+}
+.pricing .plan ul {
+    margin: 0;
+    padding: 0 25px;
+    list-style: none;
+}
+.pricing .plan ul li {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.11);
+}
+.pricing .plan h3 {
+    text-transform: uppercase
+}
+.pricing .select {
+    padding: 22px 0
 }

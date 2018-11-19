@@ -52,7 +52,7 @@ if(isset($error_msg) && !empty($error_msg)) {
 	echo $error_msg;
 }
 ?>
-	<label for="inputEmail" class="sr-only">E-Mail</label>
+	<label for="inputEmail" class="sr-only">eMail</label>
 	<input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-Mail" value="<?php echo $email_value; ?>" required autofocus>
 	<label for="inputPassword" class="sr-only">Passwort</label>
 	<input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Passwort" required>
