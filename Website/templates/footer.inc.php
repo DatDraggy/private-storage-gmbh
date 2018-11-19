@@ -8,7 +8,7 @@
       <div class="divide20"></div>
       <div class="pricing row">
         <?php
-        require_once('shared.inc.php');
+        require_once('../inc/shared.inc.php');
         $dbConnection = buildDatabasConnection();
         try{
           $sql = "SELECT raeume.groesse, preis FROM raeume INNER JOIN preise ON raeume.groesse = preise.groesse GROUP BY raeume.groesse";
