@@ -165,3 +165,11 @@ IMG.bestellen {
 .pricing .select {
     padding: 22px 0
 }
+
+.col-sm-4 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+    padding-bottom: 15px;
+}
