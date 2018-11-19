@@ -16,7 +16,7 @@ if(!is_checked_in()) {
 
   if ($stmt->rowCount() === 0) {
     //Nicht bestätigt
-    header('error.php?error=nichtBest');
+    header('error.php?error=nichtBestaetigt');
   }
 
 
