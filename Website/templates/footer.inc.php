@@ -37,7 +37,7 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="#" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <div><a href="bestellung.php?groesse=<?php echo $groesse; ?>" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
               </div>
             </div>
           </div>
