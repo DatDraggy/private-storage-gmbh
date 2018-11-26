@@ -6,7 +6,7 @@ require_once("inc/functions.inc.php");
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $userId = $_SESSION['userid'];
-if (isset($_GET['userId'])) {
+if (isset($_GET['userId']) && $_GET['userId'] != $_SESSION['userid']) {
   if (allowedToEditUser($userId)) {
     $userId = $_GET['userId'];
     echo $userId;
@@ -23,8 +23,8 @@ $user = check_user($userId);
 
 include("templates/header.inc.php");
 
-if (isset($_GET['save'])) {
-  $save = $_GET['save'];
+if (isset($_POST['save'])) {
+  $save = $_POST['save'];
 
   if ($save == 'personal_data') {
     $vorname = trim($_POST['vorname']);
@@ -140,8 +140,8 @@ $user = check_user($userId);
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="data">
         <br>
-        <form action="?save=personal_data" method="post" class="form-horizontal">
-
+        <form action="" method="post" class="form-horizontal">
+          <input type="hidden" name="save" value="personal_data">
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
@@ -218,7 +218,8 @@ $user = check_user($userId);
 
       <div role="tabpanel" class="tab-pane" id="bank">
         <br>
-        <form action="?save=bank_data" method="post" class="form-horizontal">
+        <form action="" method="post" class="form-horizontal">
+          <input type="hidden" name="save" value="bank_data">
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
@@ -253,8 +254,8 @@ $user = check_user($userId);
       <div role="tabpanel" class="tab-pane" id="email">
         <br>
         <p>Zum Änderen deiner E-Mail-Adresse gib bitte dein aktuelles Passwort sowie die neue E-Mail-Adresse ein.</p>
-        <form action="?save=email" method="post" class="form-horizontal">
-
+        <form action="" method="post" class="form-horizontal">
+          <input type="hidden" name="save" value="email">
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
@@ -298,7 +299,8 @@ $user = check_user($userId);
       <div role="tabpanel" class="tab-pane" id="passwort">
         <br>
         <p>Zum Änderen deines Passworts gib bitte dein aktuelles Passwort sowie das neue Passwort ein.</p>
-        <form action="?save=passwort" method="post" class="form-horizontal">
+        <form action="" method="post" class="form-horizontal">
+          <input type="hidden" name="save" value="passwort">
           <div class="form-group">
             <label for="inputPasswort" class="col-sm-2 control-label">Altes Passwort</label>
             <div class="col-sm-10">
