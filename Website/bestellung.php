@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once(__DIR__ . '/inc/functions.inc.php');
-if(!is_checked_in()) {
+if(is_checked_in()) {
   $groesse = $_GET['groesse'];
   $dbConnection = buildDatabaseConnection($config);
   $userId = $_SESSION['userid'];
