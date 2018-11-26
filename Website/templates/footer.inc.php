@@ -11,8 +11,8 @@
         require_once(__DIR__ . '/../inc/shared.inc.php');
         $dbConnection = buildDatabaseConnection($config);
         try{
-          $sql = "SELECT groesse, preis FROM preise GROUP BY groesse";
-          $stmt = $dbConnection->prepare("SELECT groesse, preis FROM preise GROUP BY groesse");
+          $sql = "SELECT groesse, preis FROM preise GROUP BY groesse ORDER By groesse ASC ";
+          $stmt = $dbConnection->prepare("SELECT groesse, preis FROM preise GROUP BY groesse ORDER BY groesse ASC ");
           $stmt->execute();
           $rows = $stmt->fetchAll();
         } catch (PDOException $e) {

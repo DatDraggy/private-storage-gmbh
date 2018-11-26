@@ -22,7 +22,7 @@ include("templates/header.inc.php")
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>Mieträme in unterschiedlichen Größen</h2>
+          <h2>Mieträume in unterschiedlichen Größen</h2>
           <ul>
           	<li>Registrierung & loslegen</li> 
           	<li>Monatliche Laufzeit</li>
