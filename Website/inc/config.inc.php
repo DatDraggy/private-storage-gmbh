@@ -1,8 +1,8 @@
 <?php
-$config['db_host'] = 'sec.kieran.de';
-$config['db_name'] = 'storagegmbh';
-$config['db_user'] = 'schule';
-$config['db_password'] = 'jaymax552#';
-$config['db_port'] = 3300;
-$config['db_mail'] = 'cumguzzlingdragon@kieran.de';
-$config['administration']['userEdit'] = array(1);
+$config['db_host'] = '';
+$config['db_name'] = '';
+$config['db_user'] = '';
+$config['db_password'] = '';
+$config['db_port'] = ;
+$config['db_mail'] = '';
+$config['administration']['userEdit'] = array();
