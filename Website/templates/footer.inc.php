@@ -12,17 +12,26 @@
         $dbConnection = buildDatabaseConnection($config);
         try{
           $sql = "SELECT groesse, preis FROM preise GROUP BY groesse ORDER By groesse ASC";
-          $stmt = $dbConnection->prepare("SELECT groesse, preis FROM preise GROUP BY groesse ORDER BY groesse ASC");
+          $stmt = $dbConnection->prepare("SELECT groesse, preis FROM preise GROUP BY groesse ORDER By groesse ASC");
           $stmt->execute();
           $rows = $stmt->fetchAll();
         } catch (PDOException $e) {
           notifyOnException('Database Select', $config, $sql, $e);
         }
-
+        //"SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1"
         foreach($rows as $row) {
           $groesse = $row['groesse'];
           $preis = $row['preis'];
 
+          try {
+            $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) GROUP BY groesse ORDER BY nummer ASC";
+            $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC");
+            $stmt->bindParam(':groesse', $groesse);
+            $stmt->execute();
+            $row = $stmt->fetch();
+          } catch (PDOException $e) {
+            notifyOnException('Database Select', $config, $sql, $e);
+          }
           ?>
           <div class="col-sm-4">
             <div class="plan">
@@ -30,7 +39,7 @@
               <h4><span class="amount"><span>€</span><?php echo $preis; ?></span></h4>
               <div class="features">
                 <ul>
-                  <li></li>
+                  <li><?php echo 'Verfügbar: '.$stmt->rowCount(); ?></li>
                   <li></li>
                   <img class="bestellen" src="images/lager<?php echo $groesse; ?>.png">
                   <li></li>
@@ -38,7 +47,7 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0){echo 'disabled';} ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
 
               </div>
             </div>
