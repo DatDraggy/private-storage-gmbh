@@ -43,7 +43,7 @@ function check_user($userId = '') {
 
 
 	$statement = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-	$result = $statement->execute(array('id' => $userId));
+	$result = $statement->execute(array(':id' => $userId));
 	$user = $statement->fetch();
 	return $user;
 }
@@ -56,7 +56,7 @@ function allowedToEditUser($userId) {
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
-  if (in_array($row['rightId'], $config['administration']['userEdit'])) {
+  if (in_array($row['right_id'], $config['administration']['userEdit'])) {
     return true;
   }
   else{

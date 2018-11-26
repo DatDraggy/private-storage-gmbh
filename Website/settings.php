@@ -9,7 +9,11 @@ $userId = $_SESSION['userid'];
 if(isset($_GET['userId'])){
   if(allowedToEditUser($userId)) {
     $userId = $_GET['userId'];
+    echo $userId;
   }
+}
+if(isset($_POST['userid'])){
+  $userId = $_POST['userid'];
 }
 $user = check_user($userId);
 
@@ -85,7 +89,7 @@ if(isset($_GET['save'])) {
 	}
 }
 
-$user = check_user();
+$user = check_user($userId);
 
 ?>
 
@@ -193,7 +197,12 @@ endif;
           <div role="tabpanel" class="tab-pane" id="bank">
               <br>
               <form action="?save=bank_data" method="post" class="form-horizontal">
-
+                <div class="form-group">
+                  <label for="inputId" class="col-sm-2 control-label">User ID</label>
+                  <div class="col-sm-10">
+                    <input disabled class="form-control" id="inputId" name="userid" type="number" value="<?php echo htmlentities($user['userid']); ?>">
+                  </div>
+                </div>
                   <div class="form-group">
                       <label for="inputIban" class="col-sm-2 control-label">IBAN</label>
                       <div class="col-sm-10">
