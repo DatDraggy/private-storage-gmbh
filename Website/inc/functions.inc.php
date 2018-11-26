@@ -42,7 +42,7 @@ function check_user($userId = '') {
 	}
 
 
-	$statement = $pdo->prepare("SELECT * FROM users INNER JOIN user_bankdaten ON users.id = user_bankdaten.id WHERE users.id = :id");
+	$statement = $pdo->prepare("SELECT * FROM users INNER JOIN user_bankdaten ON users.id = user_bankdaten.id INNER JOIN adressen ON users.id = adressen.user_id WHERE users.id = :id");
 	$result = $statement->execute(array(':id' => $userId));
 	$user = $statement->fetch();
 	return $user;
