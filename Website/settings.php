@@ -143,9 +143,9 @@ $user = check_user($userId);
         <form action="?save=personal_data" method="post" class="form-horizontal">
 
           <div class="form-group">
-            <label for="inputId" class="col-sm-2 control-label">Firma</label>
+            <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
-              <input hidden class="form-control" id="inputId" name="userid" type="text"
+              <input class="form-control" id="inputId" name="userid" type="number" readonly
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
@@ -222,7 +222,7 @@ $user = check_user($userId);
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
-              <input hidden class="form-control" id="inputId" name="userid" type="number"
+              <input class="form-control" id="inputId" name="userid" type="number" readonly
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
@@ -256,9 +256,9 @@ $user = check_user($userId);
         <form action="?save=email" method="post" class="form-horizontal">
 
           <div class="form-group">
-            <label for="inputId" class="col-sm-2 control-label">E-Mail</label>
+            <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
-              <input hidden class="form-control" id="inputId" name="userid" type="email"
+              <input class="form-control" id="inputId" name="userid" type="number" readonly
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
