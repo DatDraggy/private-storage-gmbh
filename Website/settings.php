@@ -12,10 +12,12 @@ if (isset($_GET['userId'])) {
     echo $userId;
   }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['userid'])) {
-  $userId = $_POST['userid'];
-} else {
-  die();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['userid'])) {
+    $userId = $_POST['userid'];
+  } else {
+    die();
+  }
 }
 $user = check_user($userId);
 
