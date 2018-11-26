@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once(__DIR__ . '/inc/functions.inc.php');
 if(!is_checked_in()) {
   $groesse = $_GET['groesse'];
@@ -16,7 +17,7 @@ if(!is_checked_in()) {
 
   if ($stmt->rowCount() === 0) {
     //Nicht bestätigt
-    header('Location: error.php?error=nichtBestaetigt');
+    header('Location: error.php?error=nichtBestaetigt&redirect=bank');
   }
 
 
