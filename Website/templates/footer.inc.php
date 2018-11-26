@@ -38,7 +38,8 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="https://<?php echo $_SERVER['SERVER_NAME'] . '/bestellung.php?groesse=' . $groesse ?>" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+
               </div>
             </div>
           </div>
