@@ -1,8 +1,8 @@
 <?php
-require_once(__DIR__ . '/config.inc.php');
-require_once(__DIR__ . 'shared.inc.php');
+require_once("inc/config.inc.php");
+require_once("inc/shared.inc.php");
 
-include_once(__DIR__ . '/password.inc.php');
+include_once("password.inc.php");
 $pdo = buildDatabaseConnection($config); 
 
 function check_user() {

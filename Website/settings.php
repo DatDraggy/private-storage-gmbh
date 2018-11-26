@@ -62,6 +62,20 @@ if(isset($_GET['save'])) {
 			$success_msg = "Passwort erfolgreich gespeichert.";
 		}
 		
+	}	else if ($save == 'bank_data') {
+		$iban = trim($_POST['iban']);
+		$bic = trim($_POST['bic']);
+		
+		if(empty($iban) || empty($bic)) {
+			$error_msg = "Bitte IBAN und BIC ausfüllen.";
+		} else {
+			$statement = $pdo->prepare("UPDATE user_bankdaten SET iban = :iban, bic = :bic WHERE id = :userid");
+			$statement->bindParam(':iban', $iban);
+			$statement->bindParam(':bic', $bic);
+			$statement->bindParam(':userid', $user['id']);
+			$result = $statement->execute();
+			$success_msg = "Daten erfolgreich gespeichert.";
+		}
 	}
 }
 
@@ -100,7 +114,7 @@ endif;
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#data" aria-controls="home" role="tab" data-toggle="tab">Persönliche Daten</a></li>
-      <li role="presentation"><a href="#bank" aria-controls="profile" role="tab" data-toggle="tab">Bankverbindung</a></li>
+    <li role="presentation"><a href="#bank" aria-controls="profile" role="tab" data-toggle="tab">Bankverbindung</a></li>
     <li role="presentation"><a href="#email" aria-controls="profile" role="tab" data-toggle="tab">E-Mail</a></li>
     <li role="presentation"><a href="#passwort" aria-controls="messages" role="tab" data-toggle="tab">Passwort</a></li>
   </ul>
@@ -168,8 +182,33 @@ endif;
     	</form>
     </div>
 
+	      <!-- Änderung der Bankverbindung -->
 
+          <div role="tabpanel" class="tab-pane" id="bank">
+              <br>
+              <form action="?save=bank_data" method="post" class="form-horizontal">
 
+                  <div class="form-group">
+                      <label for="inputIban" class="col-sm-2 control-label">IBAN</label>
+                      <div class="col-sm-10">
+                          <input class="form-control" id="inputIban" name="iban" type="text" value="<?php echo htmlentities($user['iban']); ?>" required>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="inputBic" class="col-sm-2 control-label">BIC</label>
+                      <div class="col-sm-10">
+                          <input class="form-control" id="inputBic" name="bic" type="text" value="<?php echo htmlentities($user['bic']); ?>" required>
+                      </div>
+                  </div>
+				      	<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Speichern</button>
+						</div>
+					</div>	  
+              </form>
+              </div>
+  
     <!-- Änderung der E-Mail-Adresse -->
     <div role="tabpanel" class="tab-pane" id="email">
     	<br>

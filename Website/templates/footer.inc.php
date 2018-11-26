@@ -3,7 +3,7 @@
 <div class="container">
   <div class="light-wrapper">
     <div class="container inner">
-      <h3>Sie haben die Wahl von 3 verschiedenen Räumen</h3>
+      <h3 align="center">Sie haben die Wahl von 3 unterschiedlichen Räumen</h3>
       <p></p>
       <div class="divide20"></div>
       <div class="pricing row">
@@ -22,6 +22,7 @@
         foreach($rows as $row) {
           $groesse = $row['groesse'];
           $preis = $row['preis'];
+
           ?>
           <div class="col-sm-4">
             <div class="plan">
@@ -37,7 +38,7 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="bestellung.php?groesse=<?php echo $groesse; ?>" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <div><a href="#" class="btn-lg btn-primary btn-block1">Bestellen</a></div>
               </div>
             </div>
           </div>
