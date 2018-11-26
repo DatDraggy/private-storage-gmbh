@@ -1,25 +1,25 @@
 <?php
-require_once("inc/config.inc.php");
-require_once("inc/shared.inc.php");
+
+require_once(__DIR__ . '/shared.inc.php');
 
 include_once("password.inc.php");
-$pdo = buildDatabaseConnection($config); 
+$pdo = buildDatabaseConnection($config);
 
 function check_user() {
 	global $pdo;
-	
+
 	if(!isset($_SESSION['userid']) && isset($_COOKIE['identifier']) && isset($_COOKIE['securitytoken'])) {
 		$identifier = $_COOKIE['identifier'];
 		$securitytoken = $_COOKIE['securitytoken'];
-		
+
 		$statement = $pdo->prepare("SELECT * FROM securitytokens WHERE identifier = ?");
 		$result = $statement->execute(array($identifier));
 		$securitytoken_row = $statement->fetch();
-	
+
 		if(sha1($securitytoken) !== $securitytoken_row['securitytoken']) {
 			//Vermutlich wurde der Security Token gestohlen
 			//Hier ggf. eine Warnung o.ä. anzeigen
-			
+
 		} else { //Token war korrekt
 			//Setze neuen Token
 			$neuer_securitytoken = random_string();
@@ -27,17 +27,17 @@ function check_user() {
 			$insert->execute(array('securitytoken' => sha1($neuer_securitytoken), 'identifier' => $identifier));
 			setcookie("identifier",$identifier,time()+(3600*24*365)); //1 Jahr Gültigkeit
 			setcookie("securitytoken",$neuer_securitytoken,time()+(3600*24*365)); //1 Jahr Gültigkeit
-	
+
 			//Logge den Benutzer ein
 			$_SESSION['userid'] = $securitytoken_row['user_id'];
 		}
 	}
-	
-	
+
+
 	if(!isset($_SESSION['userid'])) {
 		die('Bitte zuerst <a href="login.php">einloggen</a>');
 	}
-	
+
 
 	$statement = $pdo->prepare("SELECT * FROM users WHERE id = :id");
 	$result = $statement->execute(array('id' => $_SESSION['userid']));
@@ -51,21 +51,21 @@ function check_user() {
 function is_checked_in() {
 	return isset($_SESSION['userid']);
 }
- 
+
 /**
  * Returns a random string
  */
 function random_string() {
 	if(function_exists('openssl_random_pseudo_bytes')) {
 		$bytes = openssl_random_pseudo_bytes(16);
-		$str = bin2hex($bytes); 
+		$str = bin2hex($bytes);
 	} else if(function_exists('mcrypt_create_iv')) {
 		$bytes = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-		$str = bin2hex($bytes); 
+		$str = bin2hex($bytes);
 	} else {
 		//Replace your_secret_string with a string of your choice (>12 characters)
 		$str = md5(uniqid('your_secret_string', true));
-	}	
+	}
 	return $str;
 }
 
