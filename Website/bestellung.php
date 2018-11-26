@@ -16,7 +16,7 @@ if(!is_checked_in()) {
 
   if ($stmt->rowCount() === 0) {
     //Nicht bestätigt
-    header('error.php?error=nichtBestaetigt');
+    header('Location: error.php?error=nichtBestaetigt');
   }
 
 
@@ -31,7 +31,7 @@ if(!is_checked_in()) {
   }
   //ToDo: Wenn 5_1 in Bestellungen und nicht ausgelaufen > Ergebnis 5_2, 5_3, 5_4
   if ($stmt->rowCount() === 0) {
-    header('error.php?error=keineRaeume');
+    header('Location: error.php?error=keineRaeume');
   } else {
     $kennung = $row['kennung'];
 
@@ -48,5 +48,5 @@ if(!is_checked_in()) {
   }
 }
 else{
-  header('login.php');
+  header('Location: login.php');
 }

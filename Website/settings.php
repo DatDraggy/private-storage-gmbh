@@ -243,6 +243,12 @@ $user = check_user($userId);
             </div>
           </div>
           <div class="form-group">
+            <label for="isVerified" class="col-sm-2 control-label">Verifiziert</label>
+            <div class="col-sm-10">
+              <input disabled class="form-control" id="isVerified" type="checkbox" <?php if($user['bestaetigt']==1){echo 'checked';} ?>>
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary">Speichern</button>
             </div>
