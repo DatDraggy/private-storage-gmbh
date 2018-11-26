@@ -14,7 +14,6 @@ if (isset($_GET['userId'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['userid'])) {
-  if (isset($_POST['userid'])) {
     $userId = $_POST['userid'];
   } else {
     die();
@@ -334,5 +333,5 @@ $user = check_user($userId);
 
   </div>
   <?php
-  include("templates/footer.inc.php")
+  include("templates/footer.inc.php");
   ?>
