@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once(__DIR__ . '/inc/functions.inc.php');
-if(is_checked_in()) {
+if (is_checked_in()) {
   $groesse = $_GET['groesse'];
   $dbConnection = buildDatabaseConnection($config);
   $userId = $_SESSION['userid'];
@@ -18,36 +18,35 @@ if(is_checked_in()) {
   if ($stmt->rowCount() === 0) {
     //Nicht bestätigt
     header('Location: error.php?error=nichtBestaetigt&redirect=bank');
-  }
-
-
-  try {
-    $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) GROUP BY groesse ORDER BY nummer ASC";
-    $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1");
-    $stmt->bindParam(':groesse', $groesse);
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  //ToDo: Wenn 5_1 in Bestellungen und nicht ausgelaufen > Ergebnis 5_2, 5_3, 5_4
-  if ($stmt->rowCount() === 0) {
-    header('Location: error.php?error=keineRaeume');
   } else {
-    $kennung = $row['kennung'];
-
     try {
-      $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 1)";
-      $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 1)");
-      $stmt->bindParam(':userId', $userId);
-      $stmt->bindParam(':kennung', $kennung);
+      $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) GROUP BY groesse ORDER BY nummer ASC";
+      $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1");
+      $stmt->bindParam(':groesse', $groesse);
       $stmt->execute();
+      $row = $stmt->fetch();
     } catch (PDOException $e) {
       notifyOnException('Database Select', $config, $sql, $e);
     }
-    //Bestellung Erfolgreich
+    //ToDo: Wenn 5_1 in Bestellungen und nicht ausgelaufen > Ergebnis 5_2, 5_3, 5_4
+    if ($stmt->rowCount() === 0) {
+      header('Location: error.php?error=keineRaeume');
+    } else {
+      $kennung = $row['kennung'];
+
+      try {
+        $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 1)";
+        $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 1)");
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':kennung', $kennung);
+        $stmt->execute();
+      } catch (PDOException $e) {
+        notifyOnException('Database Select', $config, $sql, $e);
+      }
+      //Bestellung Erfolgreich
+      echo 'hat gefunzt';
+    }
   }
-}
-else{
+} else {
   header('Location: login.php');
 }
