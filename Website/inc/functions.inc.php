@@ -5,8 +5,11 @@ require_once(__DIR__ . '/shared.inc.php');
 include_once("password.inc.php");
 $pdo = buildDatabaseConnection($config);
 
-function check_user() {
+function check_user($userId = '') {
 	global $pdo;
+	if (empty($userId)){
+	  $userId = $_SESSION['userid'];
+  }
 
 	if(!isset($_SESSION['userid']) && isset($_COOKIE['identifier']) && isset($_COOKIE['securitytoken'])) {
 		$identifier = $_COOKIE['identifier'];
@@ -40,7 +43,7 @@ function check_user() {
 
 
 	$statement = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-	$result = $statement->execute(array('id' => $_SESSION['userid']));
+	$result = $statement->execute(array('id' => $userId));
 	$user = $statement->fetch();
 	return $user;
 }

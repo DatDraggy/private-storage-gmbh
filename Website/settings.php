@@ -5,13 +5,13 @@ require_once("inc/functions.inc.php");
 
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
-$user = check_user();
-$userId = $user['id'];
+$userId = $_SESSION['userid'];
 if(isset($_GET['userId'])){
   if(allowedToEditUser($userId)) {
     $userId = $_GET['userId'];
   }
 }
+$user = check_user($userId);
 
 include("templates/header.inc.php");
 
