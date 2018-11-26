@@ -14,6 +14,7 @@ if (isset($_GET['userId'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['userid'])) {
+  if (isset($_POST['userid'])) {
     $userId = $_POST['userid'];
   } else {
     die();
@@ -145,7 +146,7 @@ $user = check_user($userId);
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">Firma</label>
             <div class="col-sm-10">
-              <input disabled class="form-control" id="inputId" name="userid" type="text"
+              <input hidden class="form-control" id="inputId" name="userid" type="text"
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
@@ -222,7 +223,7 @@ $user = check_user($userId);
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
-              <input disabled class="form-control" id="inputId" name="userid" type="number"
+              <input hidden class="form-control" id="inputId" name="userid" type="number"
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
@@ -258,7 +259,7 @@ $user = check_user($userId);
           <div class="form-group">
             <label for="inputId" class="col-sm-2 control-label">E-Mail</label>
             <div class="col-sm-10">
-              <input disabled class="form-control" id="inputId" name="userid" type="email"
+              <input hidden class="form-control" id="inputId" name="userid" type="email"
                      value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
