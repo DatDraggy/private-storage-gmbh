@@ -27,14 +27,19 @@ if (isset($_POST['save'])) {
   $save = $_POST['save'];
 
   if ($save == 'personal_data') {
+    $firma = trim($_POST['firma']);
     $vorname = trim($_POST['vorname']);
     $nachname = trim($_POST['nachname']);
+    $strasse = trim($_POST['strasse']);
+    $hausr = trim($_POST['hausnr']);
+    $plz = trim($_POST['plz']);
+    $ort = trim($_POST['ort']);
 
-    if ($vorname == "" || $nachname == "") {
+      if ($vorname == "" || $nachname == "") {
       $error_msg = "Bitte Vor- und Nachname ausfüllen.";
     } else {
-      $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
-      $result = $statement->execute(array('vorname' => $vorname, 'nachname' => $nachname, 'userid' => $userId));
+      $statement = $pdo->prepare("UPDATE users SET firma = :firma, vorname = :vorname, nachname = :nachname, strasse = :strasse, hausnr = :hausnr, plz = :plz, ort = :ort,updated_at=NOW() WHERE id = :userid");
+      $result = $statement->execute(array( 'firma' => $firma, 'vorname' => $vorname, 'nachname' => $nachname, 'strasse' => $strasse, 'hausnr' => $hausnr, 'plz' => $plz, 'ort' => $ort, 'userid' => $userId));
 
       $success_msg = "Daten erfolgreich gespeichert.";
     }
