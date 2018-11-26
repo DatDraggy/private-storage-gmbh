@@ -47,8 +47,14 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0){echo 'disabled';} ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
-
+                <?php
+                if($stmt->rowCount() > 0) {
+                ?>
+                  <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>"
+                          class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <?php
+                }
+                ?>
               </div>
             </div>
           </div>
