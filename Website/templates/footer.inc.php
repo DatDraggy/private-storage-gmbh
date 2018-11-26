@@ -48,7 +48,7 @@
         ?>
       </div>
       <footer>
-        <p>Powered by StorageGmbH</p>
+        <p>Powered by Cringe</p>
       </footer>
     </div>
 
