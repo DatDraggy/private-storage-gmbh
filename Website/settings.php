@@ -6,6 +6,12 @@ require_once("inc/functions.inc.php");
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
+$userId = $user['id'];
+if(isset($_GET['userId'])){
+  if(allowedToEditUser($userId)) {
+    $userId = $_GET['userId'];
+  }
+}
 
 include("templates/header.inc.php");
 
@@ -20,7 +26,7 @@ if(isset($_GET['save'])) {
 			$error_msg = "Bitte Vor- und Nachname ausfüllen.";
 		} else {
 			$statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
-			$result = $statement->execute(array('vorname' => $vorname, 'nachname'=> $nachname, 'userid' => $user['id'] ));
+			$result = $statement->execute(array('vorname' => $vorname, 'nachname'=> $nachname, 'userid' => $userId ));
 			
 			$success_msg = "Daten erfolgreich gespeichert.";
 		}
@@ -37,7 +43,7 @@ if(isset($_GET['save'])) {
 			$error_msg = "Bitte korrektes Passwort eingeben.";
 		} else {
 			$statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
-			$result = $statement->execute(array('email' => $email, 'userid' => $user['id'] ));
+			$result = $statement->execute(array('email' => $email, 'userid' => $userId ));
 				
 			$success_msg = "E-Mail-Adresse erfolgreich gespeichert.";
 		}
@@ -57,7 +63,7 @@ if(isset($_GET['save'])) {
 			$passwort_hash = password_hash($passwortNeu, PASSWORD_DEFAULT);
 				
 			$statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
-			$result = $statement->execute(array('passwort' => $passwort_hash, 'userid' => $user['id'] ));
+			$result = $statement->execute(array('passwort' => $passwort_hash, 'userid' => $userId ));
 				
 			$success_msg = "Passwort erfolgreich gespeichert.";
 		}
@@ -72,7 +78,7 @@ if(isset($_GET['save'])) {
 			$statement = $pdo->prepare("UPDATE user_bankdaten SET iban = :iban, bic = :bic WHERE id = :userid");
 			$statement->bindParam(':iban', $iban);
 			$statement->bindParam(':bic', $bic);
-			$statement->bindParam(':userid', $user['id']);
+			$statement->bindParam(':userid', $userId);
 			$result = $statement->execute();
 			$success_msg = "Daten erfolgreich gespeichert.";
 		}

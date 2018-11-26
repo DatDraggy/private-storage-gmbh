@@ -5,3 +5,4 @@ $config['db_user'] = 'schule';
 $config['db_password'] = 'jaymax552#';
 $config['db_port'] = 3300;
 $config['db_mail'] = 'cumguzzlingdragon@kieran.de';
+$config['administration']['userEdit'] = array(1);

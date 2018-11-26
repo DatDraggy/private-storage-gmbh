@@ -45,6 +45,22 @@ function check_user() {
 	return $user;
 }
 
+function allowedToEditUser($userId) {
+  global $config;
+  $dbConnection = buildDatabaseConnection($config);
+
+  $stmt = $dbConnection->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
+  $stmt->bindParam(':userId', $userId);
+  $stmt->execute();
+  $row = $stmt->fetch();
+  if (in_array($row['rightId'], $config['administration']['userEdit'])) {
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 /**
  * Returns true when the user is checked in, else false
  */
