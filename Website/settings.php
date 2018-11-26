@@ -15,6 +15,7 @@ if(isset($_GET['userId'])){
 if(isset($_POST['userid'])){
   $userId = $_POST['userid'];
 }
+else{die();}
 $user = check_user($userId);
 
 include("templates/header.inc.php");
