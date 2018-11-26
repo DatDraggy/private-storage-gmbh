@@ -215,7 +215,7 @@ $user = check_user($userId);
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
               <input disabled class="form-control" id="inputId" name="userid" type="number"
-                     value="<?php echo htmlentities($user['userid']); ?>">
+                     value="<?php echo htmlentities($user['id']); ?>">
             </div>
           </div>
           <div class="form-group">
