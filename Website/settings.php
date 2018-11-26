@@ -143,6 +143,14 @@ $user = check_user($userId);
         <form action="?save=personal_data" method="post" class="form-horizontal">
 
           <div class="form-group">
+            <label for="inputId" class="col-sm-2 control-label">Firma</label>
+            <div class="col-sm-10">
+              <input disabled class="form-control" id="inputId" name="userid" type="text"
+                     value="<?php echo htmlentities($user['id']); ?>">
+            </div>
+          </div>
+
+          <div class="form-group">
             <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputFirma" name="firma" type="text"
@@ -246,6 +254,15 @@ $user = check_user($userId);
         <br>
         <p>Zum Änderen deiner E-Mail-Adresse gib bitte dein aktuelles Passwort sowie die neue E-Mail-Adresse ein.</p>
         <form action="?save=email" method="post" class="form-horizontal">
+
+          <div class="form-group">
+            <label for="inputId" class="col-sm-2 control-label">E-Mail</label>
+            <div class="col-sm-10">
+              <input disabled class="form-control" id="inputId" name="userid" type="email"
+                     value="<?php echo htmlentities($user['id']); ?>">
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="inputPasswort" class="col-sm-2 control-label">Passwort</label>
             <div class="col-sm-10">
