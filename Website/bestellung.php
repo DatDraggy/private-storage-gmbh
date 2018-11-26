@@ -1,6 +1,6 @@
 <?php
+require_once(__DIR__ . '/inc/functions.inc.php');
 if(!is_checked_in()) {
-  require_once(__DIR__ . '/inc/functions.inc.php');
   $groesse = $_GET['groesse'];
   $dbConnection = buildDatabaseConnection($config);
   $userId = $_SESSION['userid'];
