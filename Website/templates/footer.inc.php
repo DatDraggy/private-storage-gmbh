@@ -41,24 +41,14 @@
                 <ul>
                   <li><?php echo 'Verfügbar: '.$stmt->rowCount(); ?></li>
                   <li></li>
-                </ul>
-                  <img alt=Lagerraumabbildung" class="bestellen" src="images/lager<?php echo $groesse; ?>.png">
-                <ul>
+                  <img class="bestellen" src="images/lager<?php echo $groesse; ?>.png">
                   <li></li>
                   <li></li>
                 </ul>
               </div>
               <div class="select">
-                <?php
-                if($stmt->rowCount() > 0) {
-                ?>
-                  <div>
-                    <a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>"
-                          class="btn-lg btn-primary btn-block1">Bestellen</a>
-                  </div>
-                <?php
-                }
-                ?>
+                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0){echo 'disabled';} ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+
               </div>
             </div>
           </div>
