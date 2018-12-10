@@ -217,7 +217,7 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputFirma" name="firma" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['firma']);} ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['firma']);} ?>">
             </div>
           </div>
 
@@ -233,7 +233,7 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputNachname" class="col-sm-2 control-label">Nachname</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputNachname" name="nachname" type="text"
-                     value="<?php echo htmlentities($user['nachname']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['nachname']);} ?>" required>
             </div>
           </div>
 
