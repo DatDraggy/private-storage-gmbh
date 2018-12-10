@@ -29,7 +29,7 @@ if (isset($_POST['save'])) {
   $save = $_POST['save'];
   $editBank = false;
   $editUser = false;
-  if($userId === $_SESSION['userid']){
+  if($userId == $_SESSION['userid']){
     $editBank = true;
     $editUser = true;
   }
