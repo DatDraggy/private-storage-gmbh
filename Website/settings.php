@@ -131,6 +131,22 @@ if (isset($_POST['save'])) {
 }
 
 $user = check_user($userId);
+$viewUser = false;
+$viewUserBank = false;
+$userViewEmail = false;
+if($userId === $_SESSION['userid']){$viewUser = true;
+  $viewUserBank = true;
+  $userViewEmail = true;}
+if (in_array($editor['right_id'], $config['administration']['userView'])) {
+  $viewUser = true;
+}
+if (in_array($editor['right_id'], $config['administration']['userViewBank'])) {
+  $viewUserBank = true;
+}
+if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
+  $userViewEmail = true;
+}
+
 ?>
 
 <div class="container main-container">
@@ -201,7 +217,7 @@ $user = check_user($userId);
             <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputFirma" name="firma" type="text"
-                     value="<?php echo htmlentities($user['firma']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['firma']);} ?>" required>
             </div>
           </div>
 
@@ -209,7 +225,7 @@ $user = check_user($userId);
             <label for="inputVorname" class="col-sm-2 control-label">Vorname</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputVorname" name="vorname" type="text"
-                     value="<?php echo htmlentities($user['vorname']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['vorname']);} ?>" required>
             </div>
           </div>
 
@@ -225,7 +241,7 @@ $user = check_user($userId);
             <label for="inputStrasse" class="col-sm-2 control-label">Straße</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputStrasse" name="strasse" type="text"
-                     value="<?php echo htmlentities($user['strasse']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['strasse']);} ?>" required>
             </div>
           </div>
 
@@ -233,7 +249,7 @@ $user = check_user($userId);
             <label for="inputHausnummer" class="col-sm-2 control-label">Hausnummer</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputHausnummer" name="hausnr" type="text"
-                     value="<?php echo htmlentities($user['hausnr']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['hausnr']);} ?>" required>
             </div>
           </div>
 
@@ -241,7 +257,7 @@ $user = check_user($userId);
             <label for="inputPlz" class="col-sm-2 control-label">Postleitzahl</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputPlz" name="plz" type="text"
-                     value="<?php echo htmlentities($user['plz']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['plz']);} ?>" required>
             </div>
           </div>
 
@@ -249,7 +265,7 @@ $user = check_user($userId);
             <label for="inputOrt" class="col-sm-2 control-label">Ort</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputOrt" name="ort" type="text"
-                     value="<?php echo htmlentities($user['ort']); ?>" required>
+                     value="<?php if($viewUser){echo htmlentities($user['ort']);} ?>" required>
             </div>
           </div>
 
@@ -280,7 +296,7 @@ $user = check_user($userId);
             <label for="inputIban" class="col-sm-2 control-label">IBAN</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputIban" name="iban" type="text"
-                     value="<?php echo htmlentities($user['iban']); ?>" required>
+                     value="<?php if($viewUserBank){echo htmlentities($user['iban']);} ?>" required>
             </div>
           </div>
 
@@ -288,7 +304,7 @@ $user = check_user($userId);
             <label for="inputBic" class="col-sm-2 control-label">BIC</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputBic" name="bic" type="text"
-                     value="<?php echo htmlentities($user['bic']); ?>" required>
+                     value="<?php if($viewUserBank){echo htmlentities($user['bic']);} ?>" required>
             </div>
           </div>
           <div class="form-group">
@@ -330,7 +346,7 @@ $user = check_user($userId);
             <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputEmail" name="email" type="email"
-                     value="<?php echo htmlentities($user['email']); ?>" required>
+                     value="<?php if($userViewEmail){echo htmlentities($user['email']);} ?>" required>
             </div>
           </div>
 
