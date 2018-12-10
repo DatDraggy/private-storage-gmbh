@@ -34,10 +34,10 @@ if (isset($_POST['save'])) {
     $editUser = true;
   }
   else {
-    if (in_array($editor['right_id'], $config['administrator']['userEditBank'])) {
+    if (in_array($editor['right_id'], $config['administration']['userEditBank'])) {
       $editBank = true;
     }
-    if(in_array($editor['right_id'], $config['administrator']['userEdit'])){
+    if(in_array($editor['right_id'], $config['administration']['userEdit'])){
       $editUser = true;
     }
   }
