@@ -164,7 +164,7 @@ $user = check_user($userId);
                         <label for="inputId" class="col-sm-2 control-label">User ID</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputId" name="userid" type="number" readonly
-                                   value="<?php echo htmlentities($user['id']); ?>">
+                                   value="<?php ($user['id']); ?>">
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@ $user = check_user($userId);
                         <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputFirma" name="firma" type="text"
-                                   value="<?php echo htmlentities($user['firma']); ?>" required>
+                                   value="<?php $user['firma']); ?>" required>
                         </div>
                     </div>
 
@@ -180,7 +180,7 @@ $user = check_user($userId);
                         <label for="inputVorname" class="col-sm-2 control-label">Vorname</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputVorname" name="vorname" type="text"
-                                   value="<?php echo htmlentities($user['vorname']); ?>" required>
+                                   value="<?php ($user['vorname']); ?>" required>
                         </div>
                     </div>
 
@@ -188,7 +188,7 @@ $user = check_user($userId);
                         <label for="inputNachname" class="col-sm-2 control-label">Nachname</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputNachname" name="nachname" type="text"
-                                   value="<?php echo htmlentities($user['nachname']); ?>" required>
+                                   value="<?php $user['nachname']); ?>" required>
                         </div>
                     </div>
 
@@ -196,7 +196,7 @@ $user = check_user($userId);
                         <label for="inputStrasse" class="col-sm-2 control-label">Straße</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputStrasse" name="strasse" type="text"
-                                   value="<?php echo htmlentities($user['strasse']); ?>" required>
+                                   value="<?php $user['strasse']); ?>" required>
                         </div>
                     </div>
 
@@ -204,7 +204,7 @@ $user = check_user($userId);
                         <label for="inputHausnummer" class="col-sm-2 control-label">Hausnummer</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputHausnummer" name="hausnr" type="text"
-                                   value="<?php echo htmlentities($user['hausnr']); ?>" required>
+                                   value="<?php ($user['hausnr']); ?>" required>
                         </div>
                     </div>
 
@@ -212,7 +212,7 @@ $user = check_user($userId);
                         <label for="inputPlz" class="col-sm-2 control-label">Postleitzahl</label>
                         <div class="col-sm-10">
                             <input class="form-control" id="inputPlz" name="plz" type="text"
-                                   value="<?php echo htmlentities($user['plz']); ?>" required>
+                                   value="<?php($user['plz']); ?>" required>
                         </div>
                     </div>
 
@@ -227,8 +227,6 @@ $user = check_user($userId);
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-primary">Speichern</button>
-							<button type="delete" formaction="user_delete.php" class="btn btn-primary">Löschen</button>
-							<button type="add" class="btn btn-primary">Hinzufügen</button>
                         </div>
                     </div>
                 </form>

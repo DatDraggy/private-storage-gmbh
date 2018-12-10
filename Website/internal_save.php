@@ -39,20 +39,15 @@ Herzlich Willkommen im internen Bereich!<br><br>
         $statement = $pdo->prepare("SELECT * FROM users ORDER BY id");
         $result = $statement->execute();
         $count = 1;
-        while ($row = $statement->fetch()) {?>
-          <tr>
-		  <td><?php echo [$count++ ]; ?></td>
-		  <td><?php echo $row['vorname']; ?></td>
-		  <td><?php echo $row['nachname']; ?></td>
-		  <td><?php echo $row['email']; ?></td>
-		  <td><a href="index.php?edit=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a></td>
-		  <td><a href="user_delete.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
-          </tr>
-         <?php } ?>
-
-		
-
-		
+        while ($row = $statement->fetch()) {
+          echo "<tr>";
+          echo "<td>" . $count++ . "</td>";
+          echo "<td>" . $row['vorname'] . "</td>";
+          echo "<td>" . $row['nachname'] . "</td>";
+          echo '<td><a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a></td>';
+          echo "</tr>";
+        }
+        ?>
       </table>
     </div>
     <?php
