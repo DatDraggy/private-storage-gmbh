@@ -45,8 +45,8 @@ Herzlich Willkommen im internen Bereich!<br><br>
 		  <td><?php echo $row['vorname']; ?></td>
 		  <td><?php echo $row['nachname']; ?></td>
 		  <td><?php echo $row['email']; ?></td>
-		  <td><a href="index.php?edit=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a></td>
-		  <td><a href="user_delete.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
+		  <td><a href="settings.php?userid=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a></td>
+		  <td><a href="user_delete.php?userid=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
           </tr>
          <?php } ?>
 

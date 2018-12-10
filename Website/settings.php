@@ -2,12 +2,13 @@
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
+require_once("inc/permissions.php");
 
 //Überprüft, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $userId = $_SESSION['userid'];
 if (isset($_GET['userid']) && $_GET['userid'] != $_SESSION['userid']) {
-    if (allowedToEditUser($userId)) {
+    if (allowedToViewUser($userId)) {
         $userId = $_GET['userid'];
         echo $userId;
     }
@@ -25,7 +26,20 @@ include("templates/header.inc.php");
 
 if (isset($_POST['save'])) {
     $save = $_POST['save'];
-
+    $editBank = false;
+    $editUser = false;
+    if($userId === $_SESSION['userid']){
+        $editBank = true;
+        $editUser = true;
+    }
+    else {
+        if (in_array($user['right_id'], $config['administrator']['userEditBank'])) {
+            $editBank = true;
+        }
+        if(in_array($user['right_id'], $config['administrator']['userEdit'])){
+            $editUser = true;
+        }
+    }
     if ($save == 'personal_data') {
         $firma = trim($_POST['firma']);
         $vorname = trim($_POST['vorname']);
@@ -38,12 +52,15 @@ if (isset($_POST['save'])) {
         if ($vorname == "" || $nachname == "") {
             $error_msg = "Bitte komplett ausfüllen.";
         } else {
-            $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
-            $result = $statement->execute(array( 'vorname' => $vorname, 'nachname' => $nachname, 'userid' => $userId));
-            $statement = $pdo->prepare("UPDATE adressen SET firma = :firma, strasse = :strasse, hausnr = :hausnr, plz = :plz, ort = :ort WHERE user_id = :user_id");
-            $result = $statement->execute(array( 'firma' => $firma, 'strasse' => $strasse, 'hausnr' => $hausnr, 'plz' => $plz, 'ort' => $ort, 'user_id' => $userId));
+            if ($editUser) {
+                $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
+                $result = $statement->execute(array('vorname' => $vorname, 'nachname' => $nachname, 'userid' => $userId));
+                $statement = $pdo->prepare("UPDATE adressen SET firma = :firma, strasse = :strasse, hausnr = :hausnr, plz = :plz, ort = :ort WHERE user_id = :user_id");
+                $result = $statement->execute(array('firma' => $firma, 'strasse' => $strasse, 'hausnr' => $hausnr, 'plz' => $plz, 'ort' => $ort, 'user_id' => $userId));
 
-            $success_msg = "Daten erfolgreich gespeichert.";
+                $success_msg = "Daten erfolgreich gespeichert.";
+            }
+            else{$success_msg = "Keine Rechte";}
         }
     } else if ($save == 'email') {
         $passwort = $_POST['passwort'];
@@ -57,10 +74,12 @@ if (isset($_POST['save'])) {
         } else if (!password_verify($passwort, $user['passwort'])) {
             $error_msg = "Bitte korrektes Passwort eingeben.";
         } else {
-            $statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
-            $result = $statement->execute(array('email' => $email, 'userid' => $userId));
+            if ($editUser) {
+                $statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
+                $result = $statement->execute(array('email' => $email, 'userid' => $userId));
 
-            $success_msg = "E-Mail-Adresse erfolgreich gespeichert.";
+                $success_msg = "E-Mail-Adresse erfolgreich gespeichert.";
+            }else{$success_msg = "Keine Rechte";}
         }
 
     } else if ($save == 'passwort') {
@@ -76,26 +95,36 @@ if (isset($_POST['save'])) {
             $error_msg = "Bitte korrektes Passwort eingeben.";
         } else {
             $passwort_hash = password_hash($passwortNeu, PASSWORD_DEFAULT);
+            if ($editUser) {
+                $statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
+                $result = $statement->execute(array('passwort' => $passwort_hash, 'userid' => $userId));
 
-            $statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
-            $result = $statement->execute(array('passwort' => $passwort_hash, 'userid' => $userId));
-
-            $success_msg = "Passwort erfolgreich gespeichert.";
+                $success_msg = "Passwort erfolgreich gespeichert.";
+            }
+            else{$success_msg = "Keine Rechte";}
         }
-
     } else if ($save == 'bank_data') {
         $iban = trim($_POST['iban']);
         $bic = trim($_POST['bic']);
+        if (isset($_POST['isVerified'])) {
+            $bestaetigt = 1;
+        } else {
+            $bestaetigt = 0;
+        }
 
         if (empty($iban) || empty($bic)) {
             $error_msg = "Bitte IBAN und BIC ausfüllen.";
         } else {
-            $statement = $pdo->prepare("UPDATE user_bankdaten SET iban = :iban, bic = :bic WHERE id = :userid");
-            $statement->bindParam(':iban', $iban);
-            $statement->bindParam(':bic', $bic);
-            $statement->bindParam(':userid', $userId);
-            $result = $statement->execute();
-            $success_msg = "Daten erfolgreich gespeichert.";
+            if ($editBank) {
+                $statement = $pdo->prepare("UPDATE user_bankdaten SET iban = :iban, bic = :bic, bestaetigt = :bestaetigt WHERE id = :userid ");
+                $statement->bindParam(':iban', $iban);
+                $statement->bindParam(':bic', $bic);
+                $statement->bindParam(':bestaetigt', $bestaetigt);
+                $statement->bindParam(':userid', $userId);
+                $result = $statement->execute();
+                $success_msg = "Daten erfolgreich gespeichert.";
+            }
+            else{$success_msg = "Keine Rechte";}
         }
     }
 }
@@ -264,7 +293,7 @@ $user = check_user($userId);
                     <div class="form-group">
                         <label for="isVerified" class="col-sm-2 control-label">Verifiziert</label>
                         <div class="col-sm-10">
-                            <input disabled class="form-control" id="isVerified" type="checkbox" <?php if($user['bestaetigt']==1){echo 'checked';} ?>>
+                            <input <?php if (!in_array($user['right_id'], $config['administration']['userEditBank'])) {echo 'disabled';} ?> class="form-control" id="isVerified" name="isVerified" type="checkbox" <?php if($user['bestaetigt']==1){echo 'checked';} ?>>
                         </div>
                     </div>
                     <div class="form-group">
