@@ -41,7 +41,7 @@ Herzlich Willkommen im internen Bereich!<br><br>
         $count = 1;
         while ($row = $statement->fetch()) {?>
           <tr>
-		  <td><?php echo [$count++ ]; ?></td>
+		  <td><?php echo $count++; ?></td>
 		  <td><?php echo $row['vorname']; ?></td>
 		  <td><?php echo $row['nachname']; ?></td>
 		  <td><?php echo $row['email']; ?></td>

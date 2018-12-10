@@ -3,7 +3,7 @@ session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
 
-//Überprüfe, dass der User eingeloggt ist
+//Überprüft, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $userId = $_SESSION['userid'];
 if (isset($_GET['userid']) && $_GET['userid'] != $_SESSION['userid']) {
@@ -101,7 +101,6 @@ if (isset($_POST['save'])) {
 }
 
 $user = check_user($userId);
-
 ?>
 
 <div class="container main-container">
