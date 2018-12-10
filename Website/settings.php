@@ -130,11 +130,11 @@ if (isset($_POST['save'])) {
   }
 }
 
-$user = check_user($userId);
+$user = check_user($_SESSION['userid']);
 $viewUser = false;
 $viewUserBank = false;
 $userViewEmail = false;
-if($userId === $_SESSION['userid']){$viewUser = true;
+if($userId == $_SESSION['userid']){$viewUser = true;
   $viewUserBank = true;
   $userViewEmail = true;}
 if (in_array($editor['right_id'], $config['administration']['userView'])) {
