@@ -43,6 +43,15 @@ if (is_checked_in()) {
       } catch (PDOException $e) {
         notifyOnException('Database Select', $config, $sql, $e);
       }
+      $code = str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      try{
+        $sql = "UPDATE raeume SET code = '$code' WHERE kennung = '$kennung'";
+        $stmt = $dbConnection->prepare('UPDATE raeume SET code = :code WHERE kennung = :kennung');
+        $stmt->bindParam(':code', $code);
+        $stmt->bindParam(':kennung', $kennung);
+        $stmt->execute();
+      }catch (PDOException $e){
+        notifyOnException('Database Select', $config, $sql, $e);}
       //Bestellung Erfolgreich
       echo 'hat gefunzt';
     }

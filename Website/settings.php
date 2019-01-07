@@ -10,7 +10,6 @@ $userId = $_SESSION['userid'];
 if (isset($_GET['userid']) && $_GET['userid'] != $_SESSION['userid']) {
   if (allowedToViewUser($userId)) {
     $userId = $_GET['userid'];
-    echo $userId;
   }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,6 +28,7 @@ if (isset($_POST['save'])) {
   $save = $_POST['save'];
   $editBank = false;
   $editUser = false;
+  $canChangeRank = false;
   if($userId == $_SESSION['userid']){
     $editBank = true;
     $editUser = true;
@@ -40,6 +40,9 @@ if (isset($_POST['save'])) {
     if(in_array($editor['right_id'], $config['administration']['userEdit'])){
       $editUser = true;
     }
+    if(in_array($editor['right_id'], $config['administration']['userEditRank'])){
+      $canChangeRank = true;
+    }
   }
   if ($save == 'personal_data') {
     $firma = trim($_POST['firma']);
@@ -49,7 +52,7 @@ if (isset($_POST['save'])) {
     $hausnr = trim($_POST['hausnr']);
     $plz = trim($_POST['plz']);
     $ort = trim($_POST['ort']);
-
+$rang = trim($_POST['rang']);
     if ($vorname == "" || $nachname == "") {
       $error_msg = "Bitte komplett ausfüllen.";
     } else {
@@ -60,6 +63,21 @@ if (isset($_POST['save'])) {
         $result = $statement->execute(array('firma' => $firma, 'strasse' => $strasse, 'hausnr' => $hausnr, 'plz' => $plz, 'ort' => $ort, 'user_id' => $userId));
 
         $success_msg = "Daten erfolgreich gespeichert.";
+      }
+      if($canChangeRank){
+
+        $statement = $pdo->prepare("SELECT count(id) as countid FROM user_personal WHERE user_id = :userid");
+        $statement->execute(array('userid' => $userId));
+        $result = $statement->fetch();
+        if($result['countid'] >0){
+          //UPdate
+          $statement = $pdo->prepare("UPDATE user_personal SET right_id = :rightid WHERE user_id = :userid");
+          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
+        }else{
+          //Insert
+          $statement = $pdo->prepare("INSERT INTO user_personal(user_id, right_id) VALUES(:userid, :rightid)");
+          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
+        }
       }
       else{$success_msg = "Keine Rechte";}
     }
@@ -209,7 +227,7 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputId" class="col-sm-2 control-label">User ID</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputId" name="userid" type="number" readonly
-                     value="<?php echo htmlentities($user['id']); ?>">
+                     value="<?php echo htmlentities($userId); ?>">
             </div>
           </div>
 
@@ -266,6 +284,14 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <div class="col-sm-10">
               <input class="form-control" id="inputOrt" name="ort" type="text"
                      value="<?php if($viewUser){echo htmlentities($user['ort']);} ?>" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputRang" class="col-sm-2 control-label">Rang</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="inputRang" name="rang" type="number"
+                     value="<?php if($viewUser){echo htmlentities($user['rang']);} ?>" <?php if(!$canChangeRank){echo 'disabled';} ?> required>
             </div>
           </div>
 
