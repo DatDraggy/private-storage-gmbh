@@ -291,7 +291,7 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputRang" class="col-sm-2 control-label">Rang</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputRang" name="rang" type="number"
-                     value="<?php if($viewUser){echo htmlentities($user['rang']);} ?>" <?php if(!$canChangeRank){echo 'disabled';} ?> required>
+                     value="<?php if($viewUser){echo htmlentities($user['right_id']);} ?>" <?php if(!$canChangeRank){echo 'disabled';} ?> required>
             </div>
           </div>
 
