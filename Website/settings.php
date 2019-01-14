@@ -8,9 +8,7 @@ require_once("inc/permissions.php");
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $userId = $_SESSION['userid'];
 if (isset($_GET['userid']) && $_GET['userid'] != $_SESSION['userid']) {
-  if (allowedToViewUser($userId)) {
-    $userId = $_GET['userid'];
-  }
+  $userId = $_GET['userid'];
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['userid'])) {
@@ -52,7 +50,7 @@ if (isset($_POST['save'])) {
     $hausnr = trim($_POST['hausnr']);
     $plz = trim($_POST['plz']);
     $ort = trim($_POST['ort']);
-$rang = trim($_POST['rang']);
+    $rang = trim($_POST['rang']);
     if ($vorname == "" || $nachname == "") {
       $error_msg = "Bitte komplett ausfüllen.";
     } else {
