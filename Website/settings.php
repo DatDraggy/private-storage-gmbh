@@ -146,7 +146,7 @@ if (isset($_POST['save'])) {
   }
 }
 
-$user = check_user($_SESSION['userid']);
+//$user = check_user($_SESSION['userid']);
 $viewUser = false;
 $viewUserBank = false;
 $userViewEmail = false;
