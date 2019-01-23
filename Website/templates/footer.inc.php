@@ -1,4 +1,3 @@
-
 <hr>
 <div class="container">
   <div class="light-wrapper">
@@ -10,7 +9,7 @@
         <?php
         require_once(__DIR__ . '/../inc/shared.inc.php');
         $dbConnection = buildDatabaseConnection($config);
-        try{
+        try {
           $sql = "SELECT groesse, preis FROM preise GROUP BY groesse ORDER By groesse ASC";
           $stmt = $dbConnection->prepare("SELECT groesse, preis FROM preise GROUP BY groesse ORDER By groesse ASC");
           $stmt->execute();
@@ -19,7 +18,7 @@
           notifyOnException('Database Select', $config, $sql, $e);
         }
         //"SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1"
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
           $groesse = $row['groesse'];
           $preis = $row['preis'];
 
@@ -39,7 +38,7 @@
               <h4><span class="amount"><span>€</span><?php echo $preis; ?></span></h4>
               <div class="features">
                 <ul>
-                  <li><?php echo 'Verfügbar: '.$stmt->rowCount(); ?></li>
+                  <li><?php echo 'Verfügbar: ' . $stmt->rowCount(); ?></li>
                   <li></li>
                   <img class="bestellen" src="images/lager<?php echo $groesse; ?>.png">
                   <li></li>
@@ -47,7 +46,9 @@
                 </ul>
               </div>
               <div class="select">
-                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0){echo 'disabled';} ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
+                <div><a href="<?php echo 'bestellung.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0) {
+                    echo 'disabled';
+                  } ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
 
               </div>
             </div>

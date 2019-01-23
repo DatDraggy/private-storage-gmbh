@@ -1,5 +1,5 @@
 <div class="container">
-<h2>Fehler</h2>
+  <h2>Fehler</h2>
 
-<?php echo $error_msg; ?>
+  <?php echo $error_msg; ?>
 </div>

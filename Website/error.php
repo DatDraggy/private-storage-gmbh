@@ -9,7 +9,7 @@ if (isset($_GET['error'])) {
 if (isset($errors[$error])) {
   echo $errors[$error];
 }
-if(isset($_GET['redirect'])) {
+if (isset($_GET['redirect'])) {
   switch ($_GET['redirect']) {
     case 'bank':
       echo '<meta http-equiv="refresh" content="3; URL=settings.php#bank">';

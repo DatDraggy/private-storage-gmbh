@@ -13,9 +13,10 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if($statement->rowCount() === 1){
+if ($statement->rowCount() === 1) {
   $rightId = $row['right_id'];
-}else{die();//Keine RightID gefunden, nicht autorisiert
+} else {
+  die();//Keine RightID gefunden, nicht autorisiert
 }
 if (in_array($rightId, $config['administration']['userDelete'])) {
   //User delete, Belegte Räume befreien

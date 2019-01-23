@@ -1,9 +1,8 @@
 <?php
-//If CLI
 $dbConnection = buildDatabaseConnection($config);
 
 $row = 1;
-//Datei öffnen, wenn success nimm zeile und loop solange zeile ist nicht ende
+//Datei öffnen, wenn success nimm datei und loop solange datei ist nicht ende
 //Dann SQL insert
 if (($handle = fopen("test.csv", "r")) !== FALSE) {
   while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
@@ -19,6 +18,7 @@ if (($handle = fopen("test.csv", "r")) !== FALSE) {
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':amount', $amount);
       $stmt->bindParam(':date', $date);
+      $stmt->execute();
     } catch (PDOException $e) {
       echo 'Error ' . $e . ' auf Zeile ' . $row;
       continue;

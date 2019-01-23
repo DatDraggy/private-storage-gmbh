@@ -11,7 +11,7 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if($statement->rowCount() === 1){
+if ($statement->rowCount() === 1) {
   $rightId = $row['right_id'];
 }
 include("templates/header.inc.php");
@@ -19,12 +19,12 @@ include("templates/header.inc.php");
 
 <div class="container main-container">
 
-<h1>Herzlich Willkommen!</h1>
+  <h1>Herzlich Willkommen!</h1>
 
-Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
-Herzlich Willkommen im internen Bereich!<br><br>
+  Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
+  Herzlich Willkommen im internen Bereich!<br><br>
   <?php
-  if($rightId === 1) {
+  if ($rightId === 1) {
     ?>
     <div class="panel panel-default">
 
@@ -39,20 +39,18 @@ Herzlich Willkommen im internen Bereich!<br><br>
         $statement = $pdo->prepare("SELECT * FROM users ORDER BY id");
         $result = $statement->execute();
         $count = 1;
-        while ($row = $statement->fetch()) {?>
+        while ($row = $statement->fetch()) { ?>
           <tr>
-		  <td><?php echo $count++; ?></td>
-		  <td><?php echo $row['vorname']; ?></td>
-		  <td><?php echo $row['nachname']; ?></td>
-		  <td><?php echo $row['email']; ?></td>
-		  <td><a href="settings.php?userid=<?php echo $row['id']; ?>" class="edit_btn" >Edit</a></td>
-		  <td><a href="user_delete.php?userid=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
+            <td><?php echo $count++; ?></td>
+            <td><?php echo $row['vorname']; ?></td>
+            <td><?php echo $row['nachname']; ?></td>
+            <td><?php echo $row['email']; ?></td>
+            <td><a href="settings.php?userid=<?php echo $row['id']; ?>" class="edit_btn">Edit</a></td>
+            <td><a href="user_delete.php?userid=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
           </tr>
-         <?php } ?>
+        <?php } ?>
 
-		
 
-		
       </table>
     </div>
     <?php
@@ -61,6 +59,6 @@ Herzlich Willkommen im internen Bereich!<br><br>
 
 
 </div>
-<?php 
+<?php
 include("templates/footer.inc.php")
 ?>

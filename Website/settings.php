@@ -27,18 +27,17 @@ if (isset($_POST['save'])) {
   $editBank = false;
   $editUser = false;
   $canChangeRank = false;
-  if($userId == $_SESSION['userid']){
+  if ($userId == $_SESSION['userid']) {
     $editBank = true;
     $editUser = true;
-  }
-  else {
+  } else {
     if (in_array($editor['right_id'], $config['administration']['userEditBank'])) {
       $editBank = true;
     }
-    if(in_array($editor['right_id'], $config['administration']['userEdit'])){
+    if (in_array($editor['right_id'], $config['administration']['userEdit'])) {
       $editUser = true;
     }
-    if(in_array($editor['right_id'], $config['administration']['userEditRank'])){
+    if (in_array($editor['right_id'], $config['administration']['userEditRank'])) {
       $canChangeRank = true;
     }
   }
@@ -56,28 +55,46 @@ if (isset($_POST['save'])) {
     } else {
       if ($editUser) {
         $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
-        $result = $statement->execute(array('vorname' => $vorname, 'nachname' => $nachname, 'userid' => $userId));
+        $result = $statement->execute(array(
+          'vorname'  => $vorname,
+          'nachname' => $nachname,
+          'userid'   => $userId
+        ));
         $statement = $pdo->prepare("UPDATE adressen SET firma = :firma, strasse = :strasse, hausnr = :hausnr, plz = :plz, ort = :ort WHERE user_id = :user_id");
-        $result = $statement->execute(array('firma' => $firma, 'strasse' => $strasse, 'hausnr' => $hausnr, 'plz' => $plz, 'ort' => $ort, 'user_id' => $userId));
+        $result = $statement->execute(array(
+          'firma'   => $firma,
+          'strasse' => $strasse,
+          'hausnr'  => $hausnr,
+          'plz'     => $plz,
+          'ort'     => $ort,
+          'user_id' => $userId
+        ));
 
         $success_msg = "Daten erfolgreich gespeichert.";
       }
-      if($canChangeRank){
+      if ($canChangeRank) {
 
         $statement = $pdo->prepare("SELECT count(id) as countid FROM user_personal WHERE user_id = :userid");
         $statement->execute(array('userid' => $userId));
         $result = $statement->fetch();
-        if($result['countid'] >0){
+        if ($result['countid'] > 0) {
           //UPdate
           $statement = $pdo->prepare("UPDATE user_personal SET right_id = :rightid WHERE user_id = :userid");
-          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
-        }else{
+          $result = $statement->execute(array(
+            'rankid' => $rang,
+            'userid' => $userId
+          ));
+        } else {
           //Insert
           $statement = $pdo->prepare("INSERT INTO user_personal(user_id, right_id) VALUES(:userid, :rightid)");
-          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
+          $result = $statement->execute(array(
+            'rankid' => $rang,
+            'userid' => $userId
+          ));
         }
+      } else {
+        $success_msg = "Keine Rechte";
       }
-      else{$success_msg = "Keine Rechte";}
     }
   } else if ($save == 'email') {
     $passwort = $_POST['passwort'];
@@ -93,10 +110,15 @@ if (isset($_POST['save'])) {
     } else {
       if ($editUser) {
         $statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
-        $result = $statement->execute(array('email' => $email, 'userid' => $userId));
+        $result = $statement->execute(array(
+          'email'  => $email,
+          'userid' => $userId
+        ));
 
         $success_msg = "E-Mail-Adresse erfolgreich gespeichert.";
-      }else{$success_msg = "Keine Rechte";}
+      } else {
+        $success_msg = "Keine Rechte";
+      }
     }
 
   } else if ($save == 'passwort') {
@@ -114,11 +136,15 @@ if (isset($_POST['save'])) {
       $passwort_hash = password_hash($passwortNeu, PASSWORD_DEFAULT);
       if ($editUser) {
         $statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
-        $result = $statement->execute(array('passwort' => $passwort_hash, 'userid' => $userId));
+        $result = $statement->execute(array(
+          'passwort' => $passwort_hash,
+          'userid'   => $userId
+        ));
 
         $success_msg = "Passwort erfolgreich gespeichert.";
+      } else {
+        $success_msg = "Keine Rechte";
       }
-      else{$success_msg = "Keine Rechte";}
     }
   } else if ($save == 'bank_data') {
     $iban = trim($_POST['iban']);
@@ -140,8 +166,9 @@ if (isset($_POST['save'])) {
         $statement->bindParam(':userid', $userId);
         $result = $statement->execute();
         $success_msg = "Daten erfolgreich gespeichert.";
+      } else {
+        $success_msg = "Keine Rechte";
       }
-      else{$success_msg = "Keine Rechte";}
     }
   }
 }
@@ -150,9 +177,11 @@ if (isset($_POST['save'])) {
 $viewUser = false;
 $viewUserBank = false;
 $userViewEmail = false;
-if($userId == $_SESSION['userid']){$viewUser = true;
+if ($userId == $_SESSION['userid']) {
+  $viewUser = true;
   $viewUserBank = true;
-  $userViewEmail = true;}
+  $userViewEmail = true;
+}
 if (in_array($editor['right_id'], $config['administration']['userView'])) {
   $viewUser = true;
 }
@@ -233,7 +262,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputFirma" class="col-sm-2 control-label">Firma</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputFirma" name="firma" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['firma']);} ?>">
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['firma']);
+                     } ?>">
             </div>
           </div>
 
@@ -241,7 +272,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputVorname" class="col-sm-2 control-label">Vorname</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputVorname" name="vorname" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['vorname']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['vorname']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -249,7 +282,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputNachname" class="col-sm-2 control-label">Nachname</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputNachname" name="nachname" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['nachname']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['nachname']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -257,7 +292,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputStrasse" class="col-sm-2 control-label">Straße</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputStrasse" name="strasse" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['strasse']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['strasse']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -265,7 +302,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputHausnummer" class="col-sm-2 control-label">Hausnummer</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputHausnummer" name="hausnr" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['hausnr']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['hausnr']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -273,7 +312,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputPlz" class="col-sm-2 control-label">Postleitzahl</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputPlz" name="plz" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['plz']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['plz']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -281,7 +322,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputOrt" class="col-sm-2 control-label">Ort</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputOrt" name="ort" type="text"
-                     value="<?php if($viewUser){echo htmlentities($user['ort']);} ?>" required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['ort']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -289,7 +332,11 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputRang" class="col-sm-2 control-label">Rang</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputRang" name="rang" type="number"
-                     value="<?php if($viewUser){echo htmlentities($user['right_id']);} ?>" <?php if(!$canChangeRank){echo 'disabled';} ?> required>
+                     value="<?php if ($viewUser) {
+                       echo htmlentities($user['right_id']);
+                     } ?>" <?php if (!$canChangeRank) {
+                echo 'disabled';
+              } ?> required>
             </div>
           </div>
 
@@ -320,7 +367,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputIban" class="col-sm-2 control-label">IBAN</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputIban" name="iban" type="text"
-                     value="<?php if($viewUserBank){echo htmlentities($user['iban']);} ?>" required>
+                     value="<?php if ($viewUserBank) {
+                       echo htmlentities($user['iban']);
+                     } ?>" required>
             </div>
           </div>
 
@@ -328,13 +377,19 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputBic" class="col-sm-2 control-label">BIC</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputBic" name="bic" type="text"
-                     value="<?php if($viewUserBank){echo htmlentities($user['bic']);} ?>" required>
+                     value="<?php if ($viewUserBank) {
+                       echo htmlentities($user['bic']);
+                     } ?>" required>
             </div>
           </div>
           <div class="form-group">
             <label for="isVerified" class="col-sm-2 control-label">Verifiziert</label>
             <div class="col-sm-10">
-              <input <?php if (!in_array($editor['right_id'], $config['administration']['userEditBank'])) {echo 'disabled';} ?> class="form-control" id="isVerified" name="isVerified" type="checkbox" <?php if($user['bestaetigt']==1){echo 'checked';} ?>>
+              <input <?php if (!in_array($editor['right_id'], $config['administration']['userEditBank'])) {
+                echo 'disabled';
+              } ?> class="form-control" id="isVerified" name="isVerified" type="checkbox" <?php if ($user['bestaetigt'] == 1) {
+                echo 'checked';
+              } ?>>
             </div>
           </div>
           <div class="form-group">
@@ -370,7 +425,9 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
             <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
             <div class="col-sm-10">
               <input class="form-control" id="inputEmail" name="email" type="email"
-                     value="<?php if($userViewEmail){echo htmlentities($user['email']);} ?>" required>
+                     value="<?php if ($userViewEmail) {
+                       echo htmlentities($user['email']);
+                     } ?>" required>
             </div>
           </div>
 
