@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $user = check_user($userId);
 $editor = check_user($_SESSION['userid']);
-
+echo $userId . ' ' . $_SESSION['userid'];
 include("templates/header.inc.php");
 
 if (isset($_POST['save'])) {
@@ -70,14 +70,13 @@ if (isset($_POST['save'])) {
         if($result['countid'] >0){
           //UPdate
           $statement = $pdo->prepare("UPDATE user_personal SET right_id = :rightid WHERE user_id = :userid");
-          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
+          $result = $statement->execute(array('rightid' => $rang, 'userid' => $userId));
         }else{
           //Insert
           $statement = $pdo->prepare("INSERT INTO user_personal(user_id, right_id) VALUES(:userid, :rightid)");
-          $result = $statement->execute(array('rankid' => $rang, 'userid' => $userId));
+          $result = $statement->execute(array('rightid' => $rang, 'userid' => $userId));
         }
       }
-      else{$success_msg = "Keine Rechte";}
     }
   } else if ($save == 'email') {
     $passwort = $_POST['passwort'];
@@ -146,7 +145,7 @@ if (isset($_POST['save'])) {
   }
 }
 
-//$user = check_user($_SESSION['userid']);
+$user = check_user($userId);
 $viewUser = false;
 $viewUserBank = false;
 $userViewEmail = false;

@@ -55,7 +55,8 @@
         </div><!--/.navbar-collapse -->
         <?php else: ?>
         <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav navbar-right">     
+         <ul class="nav navbar-nav navbar-right">  
+         	<li><a href="#">Ihre gemieteten Räume</a></li> 		 
          	<li><a href="internal.php">Interner Bereich</a></li>       
             <li><a href="settings.php">Persönlicher Bereich</a></li>
             <li><a href="logout.php">Logout</a></li>

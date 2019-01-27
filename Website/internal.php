@@ -2,6 +2,7 @@
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
+require_once("inc/permissions.php");
 
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
@@ -24,7 +25,7 @@ include("templates/header.inc.php");
 Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
 Herzlich Willkommen im internen Bereich!<br><br>
   <?php
-  if($rightId === 1) {
+  if(in_array($user['right_id'], $config['administration']['userOverview'])) {
     ?>
     <div class="panel panel-default">
 
