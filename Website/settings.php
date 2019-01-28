@@ -337,8 +337,6 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary">Speichern</button>
-              <button type="delete" formaction="user_delete.php" class="btn btn-primary">Löschen</button>
-              <button type="add" class="btn btn-primary">Hinzufügen</button>
             </div>
           </div>
         </form>

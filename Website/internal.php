@@ -55,13 +55,14 @@ include("templates/header.inc.php");
       </table>
 
     </div>
-		<a href="add_user.php?userid=<?php echo $row['id']; ?>" class="edit_btn">Benutzer hinzufügen</a>
+		
     <?php
   }
   ?>
 
-
+<a href="new_user.php" class="edit_btn">Kunden neu anlegen</a>
 </div>
+            
 <?php
 include("templates/footer.inc.php")
 ?>
