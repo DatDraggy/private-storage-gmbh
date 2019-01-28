@@ -11,7 +11,7 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if($statement->rowCount() === 1){
+if ($statement->rowCount() === 1) {
   $rightId = $row['right_id'];
 }
 include("templates/header.inc.php");
@@ -19,12 +19,12 @@ include("templates/header.inc.php");
 
 <div class="container main-container">
 
-<h1>Herzlich Willkommen!</h1>
+  <h1>Herzlich Willkommen!</h1>
 
-Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
-Herzlich Willkommen im internen Bereich!<br><br>
+  Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
+  Herzlich Willkommen im internen Bereich!<br><br>
   <?php
-  if($rightId === 1) {
+  if ($rightId === 1) {
     ?>
     <div class="panel panel-default">
 
@@ -56,6 +56,6 @@ Herzlich Willkommen im internen Bereich!<br><br>
 
 
 </div>
-<?php 
+<?php
 include("templates/footer.inc.php")
 ?>

@@ -20,4 +20,4 @@ function notifyOnException($subject, $config, $sql = '', $e = '') {
   die();
 }
 
-function log_($txt){}
+function log_($txt) { }
