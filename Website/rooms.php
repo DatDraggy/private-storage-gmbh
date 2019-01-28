@@ -43,7 +43,7 @@ include("templates/header.inc.php");
           <td><?php echo $row['kennung']; ?></td>
           <td><?php echo $row['kosten']; ?></td>
           <td><?php echo $row['code']; ?></td>
-          <td><a href="user_delete.php?userid=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
+          <td><input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><button class="edit_btn></td>
         </tr>
       <?php } ?>
 
