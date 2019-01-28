@@ -53,7 +53,9 @@ include("templates/header.inc.php");
 
 
       </table>
+
     </div>
+		<a href="add_user.php?userid=<?php echo $row['id']; ?>" class="edit_btn">Benutzer hinzufügen</a>
     <?php
   }
   ?>

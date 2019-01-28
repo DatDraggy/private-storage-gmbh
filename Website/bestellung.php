@@ -43,7 +43,7 @@ if (is_checked_in()) {
       } catch (PDOException $e) {
         notifyOnException('Database Select', $config, $sql, $e);
       }
-      $code = substr(str_shuffle('123456789'), 0, 4);
+      $code = str_shuffle('123456789');
       try {
         $sql = "UPDATE raeume SET code = '$code' WHERE kennung = '$kennung'";
         $stmt = $dbConnection->prepare('UPDATE raeume SET code = :code WHERE kennung = :kennung');
@@ -54,8 +54,7 @@ if (is_checked_in()) {
         notifyOnException('Database Select', $config, $sql, $e);
       }
       //Bestellung Erfolgreich
-      echo 'Ihrem Kundenkonto wurde der Raum zugewiesen';
-      header('Location: rooms.php');
+      echo 'hat gefunzt';
     }
   }
 } else {

@@ -11,6 +11,7 @@ $config['administration']['userEdit'] = array(
   3
 );
 $config['administration']['userEditBank'] = array(3);
+$config['administration']['userAdd'] = array(3);
 $config['administration']['userEditRank'] = array(2);
 $config['administration']['userView'] = array(1, 2, 3);
 $config['administration']['userViewEmail'] = array(1);

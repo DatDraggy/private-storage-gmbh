@@ -35,7 +35,7 @@
           <div class="col-sm-4">
             <div class="plan">
               <h3><?php echo $groesse; ?>m²</h3>
-              <h4><span class="amount"><span>€</span><?php echo $preis; ?></span></h4>
+              <h4><span class="amount"><span>€</span><?php echo $preis; ?> / p.M.</span></h4>
               <div class="features">
                 <ul>
                   <li><?php echo 'Verfügbar: ' . $stmt->rowCount(); ?></li>
@@ -49,7 +49,6 @@
                 <div><a href="<?php echo 'order.php?groesse=' . $groesse ?>" <?php if ($stmt->rowCount() === 0) {
                     echo 'disabled';
                   } ?> class="btn-lg btn-primary btn-block1">Bestellen</a></div>
-
               </div>
             </div>
           </div>

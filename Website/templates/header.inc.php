@@ -13,6 +13,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
+		
   </head>
   <body>
 
@@ -65,7 +66,7 @@
         <?php else: ?>
         <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav navbar-right">  
-         	<li><a href="#">Ihre gemieteten Räume</a></li> 		 
+         	<li><a href="rooms.php">Ihre gemieteten Räume</a></li> 		 
          	<li><a href="internal.php">Interner Bereich</a></li>       
             <li><a href="settings.php">Persönlicher Bereich</a></li>
             <li><a href="logout.php">Logout</a></li>
