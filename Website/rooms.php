@@ -7,6 +7,18 @@ require_once("inc/functions.inc.php");
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $userId = $_SESSION['userid'];
+if(!empty($_POST['roomcode']) && !empty($_POST['roomid'])){
+  $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1 AND kennung = :kennung');
+  $statement->bindParam(':kennung', $_POST['roomid']);
+  $statement->bindParam(':userId', $_POST['userId']);
+  $row = $statement->fetch();
+  if ($statement->rowCount() === 1) {
+     $statement = $pdo->prepare('UPDATE raeume SET code = :code WHERE kennung = :kennung');
+  $statement->bindParam(':kennung', $_POST['roomid']);
+  $row = $statement->execute();
+  }
+}
+
 $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
@@ -43,7 +55,7 @@ include("templates/header.inc.php");
           <td><?php echo $row['kennung']; ?></td>
           <td><?php echo $row['kosten']; ?></td>
           <td><?php echo $row['code']; ?></td>
-          <td><input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><button class="edit_btn></td>
+          <td><form method="post"><input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><input hidden name="roomid" value="<?php echo $row['kennung']; ?>"><button type="submit" class="edit_btn"></form></td>
         </tr>
       <?php } ?>
 
