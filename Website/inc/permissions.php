@@ -17,4 +17,4 @@ $config['administration']['userViewEmail'] = array(1);
 $config['administration']['userDelete'] = array(2);
 $config['administration']['userViewBank'] = array(1, 3);
 $config['administration']['userAdd'] = array(2);
-$config['administration']['userOverview'] = array(1, 2);
+$config['administration']['userOverview'] = array(1, 2, 3);

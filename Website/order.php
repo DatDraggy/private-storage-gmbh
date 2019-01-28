@@ -43,7 +43,7 @@ if (is_checked_in()) {
       } catch (PDOException $e) {
         notifyOnException('Database Select', $config, $sql, $e);
       }
-      $code = str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      $code = str_shuffle('123456789');
       try {
         $sql = "UPDATE raeume SET code = '$code' WHERE kennung = '$kennung'";
         $stmt = $dbConnection->prepare('UPDATE raeume SET code = :code WHERE kennung = :kennung');
