@@ -7,7 +7,7 @@ include("templates/header.inc.php");
 $pdo = buildDatabaseConnection($config);
 ?>
   <div class="container main-container registration-form">
-    <h1>Registrierung</h1>
+    <h1>Kunden hinzufügen</h1>
     <?php
     $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden soll
 

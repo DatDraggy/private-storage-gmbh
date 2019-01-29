@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $user = check_user($userId);
 $editor = check_user($_SESSION['userid']);
-echo $userId . ' ' . $_SESSION['userid'];
 include("templates/header.inc.php");
 
 if (isset($_POST['save'])) {
@@ -78,7 +77,7 @@ if (isset($_POST['save'])) {
         $statement->execute(array('userid' => $userId));
         $result = $statement->fetch();
         if ($result['countid'] > 0) {
-          //UPdate
+          //Update
           $statement = $pdo->prepare("UPDATE user_personal SET right_id = :rightid WHERE user_id = :userid");
           $result = $statement->execute(array('rightid' => $rang, 'userid' => $userId));
         }else{

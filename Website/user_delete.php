@@ -2,7 +2,7 @@
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
-
+require_once("inc/permissions.php");
 
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
@@ -18,6 +18,7 @@ if ($statement->rowCount() === 1) {
 } else {
   die();//Keine RightID gefunden, nicht autorisiert
 }
+
 if (in_array($rightId, $config['administration']['userDelete'])) {
   //User delete, Belegte Räume befreien
   $statement = $pdo->prepare("DELETE FROM users WHERE id = :userId");
@@ -25,4 +26,5 @@ if (in_array($rightId, $config['administration']['userDelete'])) {
   $statement->execute();
   echo 'deleted';
 }
+
 include("templates/header.inc.php");

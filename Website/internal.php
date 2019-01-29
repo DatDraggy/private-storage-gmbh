@@ -55,12 +55,11 @@ include("templates/header.inc.php");
       </table>
 
     </div>
-		
+<a href="new_user.php" class="btn btn-lg btn-primary btn-block">Kunden neu anlegen</a>		
     <?php
   }
   ?>
 
-<a href="new_user.php" class="edit_btn">Kunden neu anlegen</a>
 </div>
             
 <?php

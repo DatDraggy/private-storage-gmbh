@@ -1,3 +1,6 @@
+<?php
+require_once("inc/permissions.php");
+?>
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -66,8 +69,14 @@
         <?php else: ?>
         <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav navbar-right">  
-         	<li><a href="rooms.php">Ihre gemieteten Räume</a></li> 		 
-         	<li><a href="internal.php">Interner Bereich</a></li>       
+         	<li><a href="rooms.php">Ihre gemieteten Räume</a></li>
+  <?php
+  if(in_array($user['right_id'], $config['administration']['userOverview'])) {
+    ?>			
+         	<li><a href="internal.php">Interner Bereich</a></li> 
+  <?php
+  }
+  ?>			
             <li><a href="settings.php">Persönlicher Bereich</a></li>
             <li><a href="logout.php">Logout</a></li>
           </ul>   
