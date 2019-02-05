@@ -478,5 +478,5 @@ if (in_array($editor['right_id'], $config['administration']['userViewEmail'])) {
 
   </div>
   <?php
-  include("templates/footer.inc.php");
+  include("templates/footer.inc2.php");
   ?>

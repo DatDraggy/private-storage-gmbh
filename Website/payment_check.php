@@ -28,3 +28,4 @@ foreach ($rows as $row) {
 $userId = $row['user_id'];
 
 }
+?>

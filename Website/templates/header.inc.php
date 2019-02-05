@@ -73,10 +73,26 @@ require_once("inc/permissions.php");
   <?php
   if(in_array($user['right_id'], $config['administration']['userOverview'])) {
     ?>			
-         	<li><a href="internal.php">Interner Bereich</a></li> 
+         	<li><a href="internal.php">Kundenaccount-Bereich</a></li> 
   <?php
   }
-  ?>			
+  ?>	
+
+  <?php
+  if(in_array($user['right_id'], $config['administration']['userCsv'])) {
+    ?>			
+         	<li><a href="billing.php">CSV-Import/Export</a></li> 
+  <?php
+  }
+  ?>
+  
+  <?php
+  if(in_array($user['right_id'], $config['administration']['userAuswertung'])) {
+    ?>			
+         	<li><a href="#">Auswertungsbereich</a></li> 
+  <?php
+  }
+  ?>	
             <li><a href="settings.php">Persönlicher Bereich</a></li>
             <li><a href="logout.php">Logout</a></li>
           </ul>   
