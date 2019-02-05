@@ -5,9 +5,6 @@ $dbConnection = buildDatabaseConnection($config);
 if (isset($_POST["Import"])) {
   if ($_FILES["file"]["size"] > 0) {
     $row = 1;
-    if (empty($_FILES["file"]["tmp_name"])) {
-      $_FILES["file"]["tmp_name"] = 'test.csv';
-    }
     //Datei öffnen, wenn success nimm datei und loop solange datei ist nicht ende
     //Dann SQL insert
     if (($handle = fopen($_FILES["file"]["tmp_name"], "r")) !== FALSE) {
