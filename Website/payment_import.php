@@ -4,7 +4,6 @@ require_once(__DIR__ . '/inc/functions.inc.php');
 $dbConnection = buildDatabaseConnection($config);
 
 if (isset($_POST["Import"])) {
-  mail('admin@kieran.de', 'Test', print_r($_FILES, true));
   if ($_FILES["file"]["size"] > 0) {
     $row = 1;
     //Datei öffnen, wenn success nimm datei und loop solange datei ist nicht ende
