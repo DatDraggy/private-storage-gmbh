@@ -29,7 +29,7 @@ function check_user($userId = '') {
       $insert = $pdo->prepare("UPDATE securitytokens SET securitytoken = :securitytoken WHERE identifier = :identifier");
       $insert->execute(array(
         'securitytoken' => sha1($neuer_securitytoken),
-        'identifier'    => $identifier
+        'identifier' => $identifier
       ));
       setcookie("identifier", $identifier, time() + (3600 * 24 * 365)); //1 Jahr Gültigkeit
       setcookie("securitytoken", $neuer_securitytoken, time() + (3600 * 24 * 365)); //1 Jahr Gültigkeit

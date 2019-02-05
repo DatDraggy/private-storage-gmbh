@@ -180,9 +180,9 @@ namespace {
      */
     function password_get_info($hash) {
       $return = array(
-        'algo'     => 0,
+        'algo' => 0,
         'algoName' => 'unknown',
-        'options'  => array(),
+        'options' => array(),
       );
       if (PasswordCompat\binary\_substr($hash, 0, 4) == '$2y$' && PasswordCompat\binary\_strlen($hash) == 60) {
         $return['algo'] = PASSWORD_BCRYPT;

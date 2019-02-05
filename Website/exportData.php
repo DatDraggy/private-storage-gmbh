@@ -18,22 +18,21 @@ if ($statement->rowCount() === 1) {
 ?>
 
 <?php
-	
+
 //$csvdata="abrechnung.csv";
 header("content-type: application/csv-tab-delimited-table");
-header("content-length: ".strlen($csvdata));
+header("content-length: " . strlen($csvdata));
 header("content-disposition: attachment; filename=\"abrechnung.csv\"");
 echo $csvdata;
 
-    
-    $result = mysql_query ("SELECT * FROM zahlungen", $connection);
-    echo mysql_error();
-    $csvdata="TESTEINTRAG";
-    while ($row = mysql_fetch_array($result))
-    {
-        $csvdata = $csvdata.$row["user_id"].";";
-        $csvdata = $csvdata.$row["menge"].";";
-        $csvdata = $csvdata.$row["datum"].";";
-    }
-    echo $csvdata; 
+
+$result = mysql_query("SELECT * FROM zahlungen", $connection);
+echo mysql_error();
+$csvdata = "TESTEINTRAG";
+while ($row = mysql_fetch_array($result)) {
+  $csvdata = $csvdata . $row["user_id"] . ";";
+  $csvdata = $csvdata . $row["menge"] . ";";
+  $csvdata = $csvdata . $row["datum"] . ";";
+}
+echo $csvdata;
 ?> 

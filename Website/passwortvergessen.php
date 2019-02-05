@@ -28,7 +28,7 @@ include("templates/header.inc.php");
           $statement = $pdo->prepare("UPDATE users SET passwortcode = :passwortcode, passwortcode_time = NOW() WHERE id = :userid");
           $result = $statement->execute(array(
             'passwortcode' => sha1($passwortcode),
-            'userid'       => $user['id']
+            'userid' => $user['id']
           ));
 
           $empfaenger = $user['email'];

@@ -16,7 +16,7 @@ require_once("inc/permissions.php");
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
-		
+
   </head>
   <body>
 
@@ -67,36 +67,36 @@ require_once("inc/permissions.php");
             </form>
           </div>
         <?php else: ?>
-        <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav navbar-right">  
-         	<li><a href="rooms.php">Ihre gemieteten Räume</a></li>
-  <?php
-  if(in_array($user['right_id'], $config['administration']['userOverview'])) {
-    ?>			
-         	<li><a href="internal.php">Kundenaccount-Bereich</a></li> 
-  <?php
-  }
-  ?>	
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="rooms.php">Ihre gemieteten Räume</a></li>
+              <?php
+              if (in_array($user['right_id'], $config['administration']['userOverview'])) {
+                ?>
+                <li><a href="internal.php">Kundenaccount-Bereich</a></li>
+                <?php
+              }
+              ?>
 
-  <?php
-  if(in_array($user['right_id'], $config['administration']['userCsv'])) {
-    ?>			
-         	<li><a href="billing.php">CSV-Import/Export</a></li> 
-  <?php
-  }
-  ?>
-  
-  <?php
-  if(in_array($user['right_id'], $config['administration']['userAuswertung'])) {
-    ?>			
-         	<li><a href="#">Auswertungsbereich</a></li> 
-  <?php
-  }
-  ?>	
-            <li><a href="settings.php">Persönlicher Bereich</a></li>
-            <li><a href="logout.php">Logout</a></li>
-          </ul>   
-        </div>
+              <?php
+              if (in_array($user['right_id'], $config['administration']['userCsv'])) {
+                ?>
+                <li><a href="billing.php">CSV-Import/Export</a></li>
+                <?php
+              }
+              ?>
+
+              <?php
+              if (in_array($user['right_id'], $config['administration']['userAuswertung'])) {
+                ?>
+                <li><a href="#">Auswertungsbereich</a></li>
+                <?php
+              }
+              ?>
+              <li><a href="settings.php">Persönlicher Bereich</a></li>
+              <li><a href="logout.php">Logout</a></li>
+            </ul>
+          </div>
         <?php endif; ?>
       </div>
     </nav>

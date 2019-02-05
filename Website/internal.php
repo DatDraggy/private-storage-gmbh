@@ -25,7 +25,7 @@ include("templates/header.inc.php");
   Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
   Herzlich Willkommen im internen Bereich!<br><br>
   <?php
-  if(in_array($user['right_id'], $config['administration']['userOverview'])) {
+  if (in_array($user['right_id'], $config['administration']['userOverview'])) {
     ?>
     <div class="panel panel-default">
 
@@ -55,13 +55,13 @@ include("templates/header.inc.php");
       </table>
 
     </div>
-<a href="new_user.php" class="btn btn-lg btn-primary btn-block">Kunden neu anlegen</a>		
+    <a href="new_user.php" class="btn btn-lg btn-primary btn-block">Kunden neu anlegen</a>
     <?php
   }
   ?>
 
 </div>
-            
+
 <?php
 include("templates/footer.inc2.php")
 ?>

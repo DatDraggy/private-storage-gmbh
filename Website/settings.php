@@ -55,17 +55,17 @@ if (isset($_POST['save'])) {
       if ($editUser) {
         $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
         $result = $statement->execute(array(
-          'vorname'  => $vorname,
+          'vorname' => $vorname,
           'nachname' => $nachname,
-          'userid'   => $userId
+          'userid' => $userId
         ));
         $statement = $pdo->prepare("UPDATE adressen SET firma = :firma, strasse = :strasse, hausnr = :hausnr, plz = :plz, ort = :ort WHERE user_id = :user_id");
         $result = $statement->execute(array(
-          'firma'   => $firma,
+          'firma' => $firma,
           'strasse' => $strasse,
-          'hausnr'  => $hausnr,
-          'plz'     => $plz,
-          'ort'     => $ort,
+          'hausnr' => $hausnr,
+          'plz' => $plz,
+          'ort' => $ort,
           'user_id' => $userId
         ));
 
@@ -79,11 +79,17 @@ if (isset($_POST['save'])) {
         if ($result['countid'] > 0) {
           //Update
           $statement = $pdo->prepare("UPDATE user_personal SET right_id = :rightid WHERE user_id = :userid");
-          $result = $statement->execute(array('rightid' => $rang, 'userid' => $userId));
-        }else{
+          $result = $statement->execute(array(
+            'rightid' => $rang,
+            'userid' => $userId
+          ));
+        } else {
           //Insert
           $statement = $pdo->prepare("INSERT INTO user_personal(user_id, right_id) VALUES(:userid, :rightid)");
-          $result = $statement->execute(array('rightid' => $rang, 'userid' => $userId));
+          $result = $statement->execute(array(
+            'rightid' => $rang,
+            'userid' => $userId
+          ));
         }
       } else {
         $success_msg = "Keine Rechte";
@@ -104,7 +110,7 @@ if (isset($_POST['save'])) {
       if ($editUser) {
         $statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
         $result = $statement->execute(array(
-          'email'  => $email,
+          'email' => $email,
           'userid' => $userId
         ));
 
@@ -131,7 +137,7 @@ if (isset($_POST['save'])) {
         $statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
         $result = $statement->execute(array(
           'passwort' => $passwort_hash,
-          'userid'   => $userId
+          'userid' => $userId
         ));
 
         $success_msg = "Passwort erfolgreich gespeichert.";

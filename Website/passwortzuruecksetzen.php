@@ -44,7 +44,7 @@ if (isset($_GET['send'])) {
     $statement = $pdo->prepare("UPDATE users SET passwort = :passworthash, passwortcode = NULL, passwortcode_time = NULL WHERE id = :userid");
     $result = $statement->execute(array(
       'passworthash' => $passworthash,
-      'userid'       => $userid
+      'userid' => $userid
     ));
 
     if ($result) {

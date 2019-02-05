@@ -7,7 +7,7 @@ require_once("inc/functions.inc.php");
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $userId = $_SESSION['userid'];
-if(!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] == 'change') {
+if (!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] == 'change') {
   if (strlen($_POST['roomcode']) >= 4 && is_numeric($_POST['roomcode'])) {
     $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1 AND raeume.kennung = :kennung');
     $statement->bindParam(':kennung', $_POST['roomid']);
@@ -21,8 +21,7 @@ if(!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] ==
       $statement->execute();
     }
   }
-}
-else if ($_POST['action'] == 'delete' && !empty($_POST['roomid'])) {
+} else if ($_POST['action'] == 'delete' && !empty($_POST['roomid'])) {
   $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1 AND raeume.kennung = :kennung');
   $statement->bindParam(':kennung', $_POST['roomid']);
   $statement->bindParam(':userId', $userId);
@@ -71,7 +70,13 @@ include("templates/header.inc.php");
           <td><?php echo $row['kennung']; ?></td>
           <td><?php echo $row['preis']; ?>€ p.M.</td>
           <td><?php echo $row['code']; ?></td>
-            <td><form method="post"><input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><input hidden name="roomid" value="<?php echo $row['kennung']; ?>"><button type="submit" name="action" value="change" class="edit_btn">Save</button><button type="submit" name="action" value="delete" class="del_btn">Löschen</button></form></td>
+          <td>
+            <form method="post">
+              <input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><input hidden name="roomid" value="<?php echo $row['kennung']; ?>">
+              <button type="submit" name="action" value="change" class="edit_btn">Save</button>
+              <button type="submit" name="action" value="delete" class="del_btn">Löschen</button>
+            </form>
+          </td>
         </tr>
       <?php } ?>
 
