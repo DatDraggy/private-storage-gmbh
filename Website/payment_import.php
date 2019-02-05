@@ -11,6 +11,7 @@ if (isset($_POST["Import"])) {
     if (($handle = fopen($_FILES["file"]["tmp_name"], "r")) !== FALSE) {
       while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
         if ($row === 1) {
+          $row++;
           continue;
         }
         $num = count($data);
