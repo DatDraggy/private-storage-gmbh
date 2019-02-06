@@ -25,6 +25,7 @@ foreach ($rows as $row) {
 
 
 ?>
+<div class="container center-screen">
 <script src="js/chart.min.js"></script>
 <script>
     window.onload = function () {
