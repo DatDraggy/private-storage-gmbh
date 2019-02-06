@@ -43,3 +43,4 @@ $config['administration']['userOverview'] = array(
 );
 $config['administration']['userCsv'] = array(3);
 $config['administration']['userBilling'] = array(3);
+$config['administration']['userBestaetigung'] = array(3);

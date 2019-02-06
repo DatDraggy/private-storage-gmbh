@@ -23,11 +23,12 @@ if (isset($_POST["Import"])) {
         echo $date . ' ' . $amount . ' ' . $userId;
 
         try {
-          $stmt = $dbConnection->prepare('INSERT INTO zahlungen(user_id, menge, datum) VALUES(:userId, :amount, :date)');
+          $stmt = $dbConnection->prepare('INSERT INTO abrechnung(user_id, preis, kennung, time) VALUES(:userId, :amount, :date)');
           $stmt->bindParam(':userId', $userId);
-          $stmt->bindParam(':amount', $amount);
-          $stmt->bindParam(':date', $date);
-          $stmt->execute();
+          $stmt->bindParam(':preis', $preis);
+		  $stmt->bindParam(':kennung', $kennung);
+          $stmt->bindParam(':time', $time);
+		  $stmt->execute();
         } catch (PDOException $e) {
           echo 'Error ' . $e . ' auf Zeile ' . $row;
           continue;

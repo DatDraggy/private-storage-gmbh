@@ -44,22 +44,32 @@ include("templates/header.inc.php");
         <tr>
           <th>Position</th>
           <th>UserID</th>
-          <th>Menge</th>
+          <th>Preis</th>
+          <th>Kennung</th>
           <th>Datum</th>
+          <th>Status</th>
         </tr>
 		</thead>
 		<tbody>
-       <?php
+        <form action="action.php" method="post">
+        </form>
+        <?php
         //get records from database
-        $stmt = $pdo->prepare("SELECT * FROM zahlungen ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT user_id, preis, kennung FROM abrechnung WHERE user_id = :userId");
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         foreach ($rows as $row) { ?>
           <tr>
             <td><?php echo $count++; ?></td>
             <td><?php echo $row['user_id']; ?></td>
-            <td><?php echo $row['menge']; ?></td>
-            <td><?php echo $row['datum']; ?></td>
+            <td><?php echo $row['preis']; ?></td>
+            <td><?php echo $row['kennung']; ?></td>
+            <td><?php echo $row['time'] ?></td>
+              <td><select>
+                      <option input value="true">bezahlt</option>
+                      <option input value="false">nicht bezahlt</option>
+                  </select></td>
           </tr>
         <?php }
         } else { ?>
@@ -67,7 +77,7 @@ include("templates/header.inc.php");
             <td colspan="5">Keine Buchungen zur Abrechnung vorhanden.....</td>
           </tr>
         <?php } ?>
-
+        <p><input type="submit"class="edit_btn" value="Status speichern"/></p>
         </tbody>
       </table>
     </div>

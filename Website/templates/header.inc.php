@@ -79,6 +79,14 @@ require_once("inc/permissions.php");
               ?>
 
               <?php
+              if (in_array($user['right_id'], $config['administration']['userBestaetigung'])) {
+                ?>
+                <li><a href="billing.php">Raumbestellungen</a></li>
+                <?php
+              }
+              ?>
+
+              <?php
               if (in_array($user['right_id'], $config['administration']['userCsv'])) {
                 ?>
                 <li><a href="billing.php">CSV-Import/Export</a></li>
@@ -89,7 +97,7 @@ require_once("inc/permissions.php");
               <?php
               if (in_array($user['right_id'], $config['administration']['userAuswertung'])) {
                 ?>
-                <li><a href="#">Auswertungsbereich</a></li>
+                <li><a href="statistics.php">Auswertungsbereich</a></li>
                 <?php
               }
               ?>
