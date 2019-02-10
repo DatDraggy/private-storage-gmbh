@@ -49,7 +49,7 @@ include("templates/header.inc.php");
   <h1>Herzlich Willkommen!</h1>
 
   Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
-  Hier ist eine Übersicht ihrer Räume!<br><br>
+  Hier ist eine Übersicht ihrer gemieteten Räume!<br><br>
 
 
   <div class="panel panel-default">

@@ -6,8 +6,8 @@
  * Time: 12:44
  *
  * 0 = Kunde 3
- * 1 = Admin 35
- * 2 = Geschaeftsleitung 41
+ * 1 = Geschäftsleitung 41
+ * 2 = Admin 35
  * 3 = Mitarbeiter 37
  */
 $config['administration']['userEdit'] = array(
@@ -16,7 +16,7 @@ $config['administration']['userEdit'] = array(
   3
 );
 $config['administration']['userEditBank'] = array(3);
-$config['administration']['userEditRank'] = array(2);
+$config['administration']['userEditRank'] = array(1);
 $config['administration']['userView'] = array(
   1,
   2,
@@ -32,10 +32,7 @@ $config['administration']['userViewBank'] = array(
   3
 );
 $config['administration']['userAdd'] = array(2);
-$config['administration']['userAuswertung'] = array(
-  1,
-  2
-);
+$config['administration']['userAuswertung'] = array(1);
 $config['administration']['userOverview'] = array(
   1,
   2,

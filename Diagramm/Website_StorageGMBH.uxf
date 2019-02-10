@@ -374,15 +374,15 @@ halign=center</panel_attributes>
       <x>765</x>
       <y>531</y>
       <w>108</w>
-      <h>207</h>
+      <h>234</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>100.0;210.0;40.0;210.0;40.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;240.0;40.0;240.0;40.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1071</x>
+      <x>1053</x>
       <y>450</y>
       <w>90</w>
       <h>90</h>
@@ -400,11 +400,11 @@ halign=center</panel_attributes>
     <coordinates>
       <x>567</x>
       <y>459</y>
-      <w>522</w>
+      <w>504</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>560.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>540.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -444,11 +444,11 @@ halign=center</panel_attributes>
     <coordinates>
       <x>936</x>
       <y>531</y>
-      <w>315</w>
+      <w>306</w>
       <h>333</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;350.0;330.0;350.0;330.0;10.0</additional_attributes>
+    <additional_attributes>10.0;350.0;320.0;350.0;320.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -470,7 +470,7 @@ halign=center</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1188</x>
+      <x>1170</x>
       <y>450</y>
       <w>90</w>
       <h>90</h>
@@ -488,16 +488,16 @@ halign=center</panel_attributes>
     <coordinates>
       <x>567</x>
       <y>414</y>
-      <w>684</w>
+      <w>666</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>740.0;40.0;740.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>720.0;40.0;720.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1152</x>
+      <x>1134</x>
       <y>486</y>
       <w>54</w>
       <h>27</h>
@@ -596,12 +596,12 @@ halign=center</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>567</x>
-      <y>405</y>
+      <y>396</y>
       <w>801</w>
-      <h>54</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>870.0;40.0;870.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>870.0;50.0;870.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -752,10 +752,10 @@ halign=center</panel_attributes>
     </coordinates>
     <panel_attributes>bg=red
 
+
 User
 bearbeiten
 
-keine Einsicht
 halign=center</panel_attributes>
     <additional_attributes/>
   </element>
@@ -807,5 +807,44 @@ halign=center</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>370.0;20.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>405</y>
+      <w>738</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>800.0;220.0;800.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1242</x>
+      <y>603</y>
+      <w>90</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>bg=gray
+
+
+Kontodaten
+Validierung
+
+halign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>684</y>
+      <w>369</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;390.0;70.0;390.0;10.0</additional_attributes>
   </element>
 </diagram>

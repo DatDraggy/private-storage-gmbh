@@ -35,11 +35,11 @@
           <div class="col-sm-4">
             <div class="plan">
               <h2><span class="available"><b><?php echo $groesse; ?>m²</b></span></h2>
-              <h4><span class="amount"><span>€</span><?php echo $preis; ?> / p.M.<br /> incl. 19% Mwst.</span></h4>
+              <h4><span class="amount"><span>€</span><?php echo $preis; ?> / p.M.<br /> incl. 19% MwSt.</span></h4>
               <div class="features">
                 <ul>
-                  <li><h2><span class="amount"><span>€</span>2,00 netto / m²</span></h2></li>
-                  <li><h2><span class="available"><?php echo 'Verfügbar: ' . $stmt->rowCount(); ?>&nbsp;von 4</span></li>
+                  <li><h2><span class="amount"><span>€</span>2,00 exkl. MwSt. / m²</span></h2></li>
+                  <li><h2><span class="available"><?php echo 'Verfügbarkeit: ' . $stmt->rowCount(); ?>&nbsp;von 4</span></li>
                   <img class="bestellen" src="images/lager<?php echo $groesse; ?>.png">
                   <li></li>
                   <li></li>

@@ -81,7 +81,7 @@ require_once("inc/permissions.php");
               <?php
               if (in_array($user['right_id'], $config['administration']['userBestaetigung'])) {
                 ?>
-                <li><a href="billing.php">Raumbestellungen</a></li>
+                <li><a href="confirmation.php">Raumbestellungen</a></li>
                 <?php
               }
               ?>
