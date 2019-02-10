@@ -58,7 +58,7 @@ include("templates/header.inc.php");
       <tr>
         <th>Kennung</th>
         <th>Kosten</th>
-        <th>Code</th>
+        <th>Zugangscode</th>
       </tr>
       <?php
       $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1");
@@ -73,8 +73,8 @@ include("templates/header.inc.php");
           <td>
             <form method="post">
               <input name="roomcode" id="roomcode" value="<?php echo $row['code']; ?>"><input hidden name="roomid" value="<?php echo $row['kennung']; ?>">
-              <button type="submit" name="action" value="change" class="edit_btn">Save</button>
-              <button type="submit" name="action" value="delete" class="del_btn">Löschen</button>
+              <button type="submit" name="action" value="change" class="edit_btn">Zugangscode setzen</button>
+              <button type="submit" name="action" value="delete" class="del_btn">Raum kündigen</button>
             </form>
           </td>
         </tr>
