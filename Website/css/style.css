@@ -153,6 +153,39 @@ IMG.bestellen {
     padding: 10px 0 0 0;
     color: #2e2e2e;
 }
+
+.pricing .plan h2 span {
+    color: #549dc5;
+}
+.pricing .plan h2 .amount {
+    display: block;
+    text-align: center;
+}
+.pricing .plan h2 .amount {
+    font-size: 25px;
+}
+.pricing .plan h2 .amount span {
+    vertical-align: super;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.pricing .plan h2 span.available {
+    color: green;
+}
+.pricing .plan h2 .available {
+    display: block;
+    text-align: center;
+}
+.pricing .plan h2 .available {
+    font-size: 25px;
+}
+.pricing .plan h2 .available span {
+    vertical-align: super;
+    font-size: 18px;
+    font-weight: 200;
+}
+
 .pricing .plan h4 {
     padding: 0 0 20px 0;
     margin: 0 25px;
@@ -166,7 +199,7 @@ IMG.bestellen {
     text-align: center;
 }
 .pricing .plan h4 .amount {
-    font-size: 45px;
+    font-size: 35px;
     padding-bottom: 10px;
 }
 .pricing .plan h4 .amount span {
@@ -180,7 +213,7 @@ IMG.bestellen {
     list-style: none;
 }
 .pricing .plan ul li {
-    padding: 15px 0;
+    padding: 5px 0;
     border-bottom: 1px solid rgba(0,0,0,0.11);
 }
 .pricing .plan h3 {
