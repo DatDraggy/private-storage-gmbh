@@ -20,8 +20,8 @@ if (is_checked_in()) {
     header('Location: error.php?error=nichtBestaetigt&redirect=bank');
   } else {
     try {
-      $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) GROUP BY groesse ORDER BY nummer ASC";
-      $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1");
+      $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE (aktiv = 1 OR bis = 0)) GROUP BY groesse ORDER BY nummer ASC";
+      $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE (aktiv = 1 OR bis = 0)) ORDER BY nummer ASC LIMIT 1");
       $stmt->bindParam(':groesse', $groesse);
       $stmt->execute();
       $row = $stmt->fetch();
@@ -35,8 +35,8 @@ if (is_checked_in()) {
       $kennung = $row['kennung'];
 
       try {
-        $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 1)";
-        $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 1)");
+        $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 0)";
+        $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 0)");
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':kennung', $kennung);
         $stmt->execute();

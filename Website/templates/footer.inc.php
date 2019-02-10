@@ -23,8 +23,8 @@
           $preis = $row['preis'];
 
           try {
-            $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) GROUP BY groesse ORDER BY nummer ASC";
-            $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC");
+            $sql = "SELECT kennung FROM raeume WHERE kennung NOT IN (SELECT kennung FROM bestellungen WHERE (aktiv = 1 OR bis = 0)) GROUP BY groesse ORDER BY nummer ASC";
+            $stmt = $dbConnection->prepare("SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE (aktiv = 1 OR bis = 0)) ORDER BY nummer ASC");
             $stmt->bindParam(':groesse', $groesse);
             $stmt->execute();
             $row = $stmt->fetch();

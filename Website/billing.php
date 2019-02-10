@@ -46,7 +46,6 @@ include("templates/header.inc.php");
           <th>UserID</th>
           <th>Preis</th>
           <th>Kennung</th>
-          <th>Datum</th>
           <th>Status</th>
         </tr>
 		</thead>
@@ -55,24 +54,24 @@ include("templates/header.inc.php");
         </form>
         <?php
         //get records from database
-        $stmt = $pdo->prepare("SELECT user_id, preis, kennung FROM abrechnung WHERE user_id = :userId");
-        $stmt->bindParam(':userId', $userId);
+        $stmt = $pdo->prepare("SELECT user_id, preis, kennung FROM abrechnung");
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $count = 1;
         foreach ($rows as $row) { ?>
           <tr>
             <td><?php echo $count++; ?></td>
             <td><?php echo $row['user_id']; ?></td>
             <td><?php echo $row['preis']; ?></td>
             <td><?php echo $row['kennung']; ?></td>
-            <td><?php echo $row['time'] ?></td>
               <td><select>
                       <option input value="true">bezahlt</option>
                       <option input value="false">nicht bezahlt</option>
                   </select></td>
           </tr>
-        <?php }
-        } else { ?>
+        <?php
+        }
+        if($stmt->rowCount() === 0) { ?>
           <tr>
             <td colspan="5">Keine Buchungen zur Abrechnung vorhanden.....</td>
           </tr>
@@ -88,7 +87,9 @@ include("templates/header.inc.php");
   <input type="text" name="Import">
   <input type="submit" class="edit_btn" value="CSV Import">
 </form>
+
   		
 <?php
-include("templates/footer.inc2.php")
+  }
+include("templates/footer.inc2.php");
 ?>

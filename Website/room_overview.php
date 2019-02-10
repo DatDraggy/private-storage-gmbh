@@ -2,16 +2,17 @@
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
+require_once ('inc/permissions.php');
 
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $userId = $_SESSION['userid'];
+if(!in_array($user['right_id'], $config['administration']['roomOverview'])){die;}
 if (!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] == 'change') {
   if (strlen($_POST['roomcode']) >= 4 && is_numeric($_POST['roomcode'])) {
-    $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1 AND raeume.kennung = :kennung');
+    $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE aktiv = 1 AND raeume.kennung = :kennung');
     $statement->bindParam(':kennung', $_POST['roomid']);
-    $statement->bindParam(':userId', $userId);
     $statement->execute();
     $row = $statement->fetch();
     if ($statement->rowCount() == 1) {
@@ -22,41 +23,20 @@ if (!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] =
     }
   }
 } else if ($_POST['action'] == 'delete' && !empty($_POST['roomid'])) {
-  $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 1 AND raeume.kennung = :kennung');
+  $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE aktiv = 1 AND raeume.kennung = :kennung');
   $statement->bindParam(':kennung', $_POST['roomid']);
-  $statement->bindParam(':userId', $userId);
   $statement->execute();
   $row = $statement->fetch();
   if ($statement->rowCount() == 1) {
     $endOfMonth = strtotime(date("Y-m-t"));
-    $statement = $pdo->prepare('UPDATE bestellungen SET bis = :bis WHERE user_id = :userId AND aktiv = 1 AND bis = 0 AND kennung = :kennung');
+    $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 0, bis = :bis WHERE aktiv = 1 AND kennung = :kennung');
     $statement->bindParam(':bis', $endOfMonth);
-    $statement->bindParam(':userId', $userId);
     $statement->bindParam(':kennung', $_POST['roomid']);
     $statement->execute();
-  } else {
-    $statement = $pdo->prepare('SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 0 AND bis = 0 AND raeume.kennung = :kennung');
-    $statement->bindParam(':kennung', $_POST['roomid']);
-    $statement->bindParam(':userId', $userId);
-    $statement->execute();
-    $row = $statement->fetch();
-    if ($statement->rowCount() == 1) {
-      $endOfMonth = strtotime(date("Y-m-t"));
-      $statement = $pdo->prepare('UPDATE bestellungen SET bis = UNIX_TIMESTAMP() WHERE user_id = :userId AND aktiv = 0 AND bis = 0 AND kennung = :kennung');
-      $statement->bindParam(':userId', $userId);
-      $statement->bindParam(':kennung', $_POST['roomid']);
-      $statement->execute();
-    }
   }
 }
 
-$statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
-$statement->bindParam(':userId', $userId);
-$result = $statement->execute();
-$row = $statement->fetch();
-if ($statement->rowCount() === 1) {
-  $rightId = $row['right_id'];
-}
+$rightId = $user['right_id'];
 include("templates/header.inc.php");
 ?>
 
@@ -79,7 +59,7 @@ include("templates/header.inc.php");
         <th>Läuft bis</th>
       </tr>
       <?php
-      $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code, aktiv, bis FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND (aktiv = 1 OR bis = 0)");
+      $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code, aktiv, bis FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE (aktiv = 1 OR bis = 0)");
       $statement->bindParam(':userId', $userId);
       $result = $statement->execute();
       $count = 1;
