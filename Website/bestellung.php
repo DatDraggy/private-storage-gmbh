@@ -35,8 +35,8 @@ if (is_checked_in()) {
       $kennung = $row['kennung'];
 
       try {
-        $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 1)";
-        $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 1)");
+        $sql = "INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES($userId, $kennung, UNIX_TIMESTAMP(), 0)";
+        $stmt = $dbConnection->prepare("INSERT INTO bestellungen(user_id, kennung, datum, aktiv) VALUES(:userId, :kennung, UNIX_TIMESTAMP(), 0)");
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':kennung', $kennung);
         $stmt->execute();
