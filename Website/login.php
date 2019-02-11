@@ -1,12 +1,30 @@
 <?php
+/*
+ * Dateiname: login.php
+ * Autor: Dennis, Marlin
+ *
+ * Version: 1.4
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Formular zum Einloggen
+ *
+ * Verwendete Funktionen:
+ *   build_database_connection
+ *   random_string
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/shared.inc.php");
 require_once("inc/functions.inc.php");
-$pdo = buildDatabaseConnection($config);
+$pdo = build_database_connection($config);
 
 $error_msg = "";
-if (isset($_POST['email']) && isset($_POST['passwort'])) {
+if (isset($_POST['email']) && isset($_POST['passwort']))
+{
   $email = $_POST['email'];
   $passwort = $_POST['passwort'];
 
@@ -15,11 +33,13 @@ if (isset($_POST['email']) && isset($_POST['passwort'])) {
   $user = $statement->fetch();
 
   //Überprüfung des Passworts
-  if ($user !== false && password_verify($passwort, $user['passwort'])) {
+  if ($user !== false && password_verify($passwort, $user['passwort']))
+  {
     $_SESSION['userid'] = $user['id'];
 
     //Möchte der Nutzer angemeldet beleiben?
-    if (isset($_POST['angemeldet_bleiben'])) {
+    if (isset($_POST['angemeldet_bleiben']))
+    {
       $identifier = random_string();
       $securitytoken = random_string();
 
@@ -35,14 +55,17 @@ if (isset($_POST['email']) && isset($_POST['passwort'])) {
 
     header("location: internal.php");
     exit;
-  } else {
+  }
+  else
+  {
     $error_msg = "E-Mail oder Passwort war ungültig<br><br>";
   }
 
 }
 
 $email_value = "";
-if (isset($_POST['email'])) {
+if (isset($_POST['email']))
+{
   $email_value = htmlentities($_POST['email']);
 }
 
@@ -53,7 +76,8 @@ include("templates/header.inc.php");
       <h2 class="form-signin-heading">Login</h2>
 
       <?php
-      if (isset($error_msg) && !empty($error_msg)) {
+      if (isset($error_msg) && !empty($error_msg))
+      {
         echo $error_msg;
       }
       ?>
@@ -68,7 +92,7 @@ include("templates/header.inc.php");
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
       <br>
-      <a href="passwortvergessen.php">Passwort vergessen</a>
+      <a href="passwordforget.php">Passwort vergessen</a>
     </form>
 
   </div> <!-- /container -->

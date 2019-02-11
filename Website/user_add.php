@@ -1,4 +1,21 @@
 <?php
+/*
+ * Dateiname: user_add.php
+ * Autor: Dennis
+ *
+ * Version: 0.4
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Fügt User hinzu/bearbeitet User
+ *
+ * Verwendete Funktionen:
+ *   allowed_to_view_user
+ *   check_user
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -6,16 +23,22 @@ require_once("inc/functions.inc.php");
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $userId = $_SESSION['userid'];
-if (isset($_GET['userId']) && $_GET['userId'] != $_SESSION['userid']) {
-  if (allowedToEditUser($userId)) {
+if (isset($_GET['userId']) && $_GET['userId'] != $_SESSION['userid'])
+{
+  if (allowed_to_view_user($userId))
+  {
     $userId = $_GET['userId'];
     echo $userId;
   }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['userid'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+  if (isset($_POST['userid']))
+  {
     $userId = $_POST['userid'];
-  } else {
+  }
+  else
+  {
     die();
   }
 }
@@ -23,10 +46,12 @@ $user = check_user($userId);
 
 include("templates/header.inc.php");
 
-if (isset($_POST['save'])) {
+if (isset($_POST['save']))
+{
   $save = $_POST['save'];
 
-  if ($save == 'personal_data') {
+  if ($save == 'personal_data')
+  {
     $firma = trim($_POST['firma']);
     $vorname = trim($_POST['vorname']);
     $nachname = trim($_POST['nachname']);
@@ -35,9 +60,12 @@ if (isset($_POST['save'])) {
     $plz = trim($_POST['plz']);
     $ort = trim($_POST['ort']);
 
-    if ($vorname == "" || $nachname == "") {
+    if ($vorname == "" || $nachname == "")
+    {
       $error_msg = "Bitte komplett ausfüllen.";
-    } else {
+    }
+    else
+    {
       $statement = $pdo->prepare("UPDATE users SET vorname = :vorname, nachname = :nachname, updated_at=NOW() WHERE id = :userid");
       $result = $statement->execute(array(
         'vorname' => $vorname,
@@ -56,18 +84,27 @@ if (isset($_POST['save'])) {
 
       $success_msg = "Daten erfolgreich gespeichert.";
     }
-  } else if ($save == 'email') {
+  }
+  else if ($save == 'email')
+  {
     $passwort = $_POST['passwort'];
     $email = trim($_POST['email']);
     $email2 = trim($_POST['email2']);
 
-    if ($email != $email2) {
+    if ($email != $email2)
+    {
       $error_msg = "Die eingegebenen E-Mail-Adressen stimmten nicht überein.";
-    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    }
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    {
       $error_msg = "Bitte eine gültige E-Mail-Adresse eingeben.";
-    } else if (!password_verify($passwort, $user['passwort'])) {
+    }
+    else if (!password_verify($passwort, $user['passwort']))
+    {
       $error_msg = "Bitte korrektes Passwort eingeben.";
-    } else {
+    }
+    else
+    {
       $statement = $pdo->prepare("UPDATE users SET email = :email WHERE id = :userid");
       $result = $statement->execute(array(
         'email' => $email,
@@ -77,18 +114,27 @@ if (isset($_POST['save'])) {
       $success_msg = "E-Mail-Adresse erfolgreich gespeichert.";
     }
 
-  } else if ($save == 'passwort') {
+  }
+  else if ($save == 'passwort')
+  {
     $passwortAlt = $_POST['passwortAlt'];
     $passwortNeu = trim($_POST['passwortNeu']);
     $passwortNeu2 = trim($_POST['passwortNeu2']);
 
-    if ($passwortNeu != $passwortNeu2) {
+    if ($passwortNeu != $passwortNeu2)
+    {
       $error_msg = "Die eingegebenen Passwörter stimmten nicht überein.";
-    } else if ($passwortNeu == "") {
+    }
+    else if ($passwortNeu == "")
+    {
       $error_msg = "Das Passwort darf nicht leer sein.";
-    } else if (!password_verify($passwortAlt, $user['passwort'])) {
+    }
+    else if (!password_verify($passwortAlt, $user['passwort']))
+    {
       $error_msg = "Bitte korrektes Passwort eingeben.";
-    } else {
+    }
+    else
+    {
       $passwort_hash = password_hash($passwortNeu, PASSWORD_DEFAULT);
 
       $statement = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :userid");
@@ -100,13 +146,18 @@ if (isset($_POST['save'])) {
       $success_msg = "Passwort erfolgreich gespeichert.";
     }
 
-  } else if ($save == 'bank_data') {
+  }
+  else if ($save == 'bank_data')
+  {
     $iban = trim($_POST['iban']);
     $bic = trim($_POST['bic']);
 
-    if (empty($iban) || empty($bic)) {
+    if (empty($iban) || empty($bic))
+    {
       $error_msg = "Bitte IBAN und BIC ausfüllen.";
-    } else {
+    }
+    else
+    {
       $statement = $pdo->prepare("UPDATE user_bankdaten SET iban = :iban, bic = :bic WHERE id = :userid");
       $statement->bindParam(':iban', $iban);
       $statement->bindParam(':bic', $bic);
@@ -280,7 +331,8 @@ $user = check_user($userId);
           <div class="form-group">
             <label for="isVerified" class="col-sm-2 control-label">Verifiziert</label>
             <div class="col-sm-10">
-              <input disabled class="form-control" id="isVerified" type="checkbox" <?php if ($user['bestaetigt'] == 1) {
+              <input disabled class="form-control" id="isVerified" type="checkbox" <?php if ($user['bestaetigt'] == 1)
+              {
                 echo 'checked';
               } ?>>
             </div>

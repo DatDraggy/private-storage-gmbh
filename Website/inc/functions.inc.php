@@ -3,15 +3,18 @@ require_once(__DIR__ . '/config.inc.php');
 require_once(__DIR__ . '/shared.inc.php');
 
 include_once("password.inc.php");
-$pdo = buildDatabaseConnection($config);
+$pdo = build_database_connection($config);
 
-function check_user($userId = '') {
+function check_user($userId = '')
+{
   global $pdo;
-  if (empty($userId)) {
+  if (empty($userId))
+  {
     $userId = $_SESSION['userid'];
   }
 
-  if (!isset($_SESSION['userid']) && isset($_COOKIE['identifier']) && isset($_COOKIE['securitytoken'])) {
+  if (!isset($_SESSION['userid']) && isset($_COOKIE['identifier']) && isset($_COOKIE['securitytoken']))
+  {
     $identifier = $_COOKIE['identifier'];
     $securitytoken = $_COOKIE['securitytoken'];
 
@@ -19,11 +22,14 @@ function check_user($userId = '') {
     $result = $statement->execute(array($identifier));
     $securitytoken_row = $statement->fetch();
 
-    if (sha1($securitytoken) !== $securitytoken_row['securitytoken']) {
+    if (sha1($securitytoken) !== $securitytoken_row['securitytoken'])
+    {
       //Vermutlich wurde der Security Token gestohlen
       //Hier ggf. eine Warnung o.ä. anzeigen
 
-    } else { //Token war korrekt
+    }
+    else
+    { //Token war korrekt
       //Setze neuen Token
       $neuer_securitytoken = random_string();
       $insert = $pdo->prepare("UPDATE securitytokens SET securitytoken = :securitytoken WHERE identifier = :identifier");
@@ -40,7 +46,8 @@ function check_user($userId = '') {
   }
 
 
-  if (!isset($_SESSION['userid'])) {
+  if (!isset($_SESSION['userid']))
+  {
     die('Bitte zuerst <a href="login.php">einloggen</a>');
   }
 
@@ -52,17 +59,21 @@ function check_user($userId = '') {
   return $user;
 }
 
-function allowedToViewUser($userId) {
+function allowed_to_view_user($userId)
+{
   global $config;
-  $dbConnection = buildDatabaseConnection($config);
+  $dbConnection = build_database_connection($config);
 
   $stmt = $dbConnection->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
-  if (in_array($row['right_id'], $config['administration']['userEdit'])) {
+  if (in_array($row['right_id'], $config['administration']['userEdit']))
+  {
     return true;
-  } else {
+  }
+  else
+  {
     return false;
   }
 }
@@ -70,21 +81,28 @@ function allowedToViewUser($userId) {
 /**
  * Returns true when the user is checked in, else false
  */
-function is_checked_in() {
+function is_checked_in()
+{
   return isset($_SESSION['userid']);
 }
 
 /**
  * Returns a random string
  */
-function random_string() {
-  if (function_exists('openssl_random_pseudo_bytes')) {
+function random_string()
+{
+  if (function_exists('openssl_random_pseudo_bytes'))
+  {
     $bytes = openssl_random_pseudo_bytes(16);
     $str = bin2hex($bytes);
-  } else if (function_exists('mcrypt_create_iv')) {
+  }
+  else if (function_exists('mcrypt_create_iv'))
+  {
     $bytes = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
     $str = bin2hex($bytes);
-  } else {
+  }
+  else
+  {
     //Replace your_secret_string with a string of your choice (>12 characters)
     $str = md5(uniqid('your_secret_string', true));
   }
@@ -94,7 +112,8 @@ function random_string() {
 /**
  * Returns the URL to the site without the script name
  */
-function getSiteURL() {
+function get_site_url()
+{
   $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
   return $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
 }
@@ -102,7 +121,8 @@ function getSiteURL() {
 /**
  * Outputs an error message and stops the further exectution of the script.
  */
-function error($error_msg) {
+function error($error_msg)
+{
   include("templates/header.inc.php");
   include("templates/error.inc.php");
   include("templates/footer.inc.php");

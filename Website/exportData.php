@@ -3,21 +3,25 @@ session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
 require_once("inc/permissions.php");
-$dbConnection = buildDatabaseConnection($config);
+$dbConnection = build_database_connection($config);
 //Überprüfe, dass der User eingeloggt ist
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $rightId = $user['right_id'];
 
-try {
+try
+{
   $stmt = $dbConnection->prepare('SELECT * FROM zahlungen');
   $stmt->execute();
   $rows = $stmt->fetchAll();
-} catch (PDOException $e) {
+}
+catch (PDOException $e)
+{
   echo $e;
 }
 $csvdata = 'user_id,menge,datum' . "\n";
-foreach ($rows as $row) {
+foreach ($rows as $row)
+{
   $csvdata .= $row['user_id'] . ',';
   $csvdata .= $row['menge'] . ',';
   $csvdata .= $row['datum'] . "\n";

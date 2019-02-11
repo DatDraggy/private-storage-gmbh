@@ -1,4 +1,20 @@
 <?php
+/*
+ * Dateiname: passwordforget.php
+ * Autor: Dennis, Jason
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Formular zum Passwort zurücksetzen
+ *
+ * Verwendete Funktionen:
+ *  get_site_url
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -12,17 +28,24 @@ include("templates/header.inc.php");
     <?php
     $showForm = true;
 
-    if (isset($_GET['send'])) {
-      if (!isset($_POST['email']) || empty($_POST['email'])) {
+    if (isset($_GET['send']))
+    {
+      if (!isset($_POST['email']) || empty($_POST['email']))
+      {
         $error = "<b>Bitte eine E-Mail-Adresse eintragen</b>";
-      } else {
+      }
+      else
+      {
         $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $result = $statement->execute(array('email' => $_POST['email']));
         $user = $statement->fetch();
 
-        if ($user === false) {
+        if ($user === false)
+        {
           $error = "<b>Kein Benutzer gefunden</b>";
-        } else {
+        }
+        else
+        {
 
           $passwortcode = random_string();
           $statement = $pdo->prepare("UPDATE users SET passwortcode = :passwortcode, passwortcode_time = NOW() WHERE id = :userid");
@@ -34,7 +57,7 @@ include("templates/header.inc.php");
           $empfaenger = $user['email'];
           $betreff = "Neues Passwort für deinen Account bei StorageGmbH"; //Ersetzt hier den Domain-Namen
           $from = "From: Storage GmbH <absender@domain.de>"; //Ersetzt hier euren Name und E-Mail-Adresse
-          $url_passwortcode = getSiteURL() . 'passwortzuruecksetzen.php?userid=' . $user['id'] . '&code=' . $passwortcode; //Setzt hier eure richtige Domain ein
+          $url_passwortcode = get_site_url() . 'passwordreset.php?userid=' . $user['id'] . '&code=' . $passwortcode; //Setzt hier eure richtige Domain ein
           $text = 'Hallo ' . $user['vorname'] . ',
 für deinen Zugang bei StorageGmbH wurde nach einem neuen Passwort gefragt. Um ein neues Passwort zu vergeben, rufe innerhalb der nächsten 24 Stunden die folgende Website auf:
 ' . $url_passwortcode . '
@@ -59,7 +82,8 @@ Das StorageGmbH Team';
       Gib hier deine E-Mail-Adresse ein, um ein neues Passwort anzufordern.<br><br>
 
       <?php
-      if (isset($error) && !empty($error)) {
+      if (isset($error) && !empty($error))
+      {
         echo $error;
       }
 

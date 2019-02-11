@@ -1,13 +1,14 @@
 <?php
 //include database configuration file
 require_once(__DIR__ . '/inc/config.inc.php');
-$dbConnection = buildDatabaseConnection($config);
+$dbConnection = build_database_connection($config);
 //get records from database
 $stmt = $dbConnection->prepare("SELECT id, user_id, menge, datum FROM zahlungen ORDER BY id DESC");
 $stmt->execute();
 $rows = $stmt->fetchAll();
 
-if($stmt->rowCount() > 0){
+if ($stmt->rowCount() > 0)
+{
   $delimiter = ",";
   $filename = "zahlungen_" . date('Y-m-d') . ".csv";
 
@@ -15,12 +16,23 @@ if($stmt->rowCount() > 0){
   $f = fopen('php://memory', 'w');
 
   //set column headers
-  $fields = array('ID', 'UserID', 'Menge', 'Datum');
+  $fields = array(
+    'ID',
+    'UserID',
+    'Menge',
+    'Datum'
+  );
   fputcsv($f, $fields, $delimiter);
 
   //output each row of the data, format line as csv and write to file pointer
-  foreach ($rows as $row) {
-    $lineData = array($row['id'], $row['user_id'], $row['menge'], $row['datum']);
+  foreach ($rows as $row)
+  {
+    $lineData = array(
+      $row['id'],
+      $row['user_id'],
+      $row['menge'],
+      $row['datum']
+    );
     fputcsv($f, $lineData, $delimiter);
   }
 

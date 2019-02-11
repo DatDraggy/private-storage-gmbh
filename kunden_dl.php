@@ -3,7 +3,7 @@ session_start();
 require_once(__DIR__ . '/inc/functions.inc.php');
 $userId=is_checked_in();
 if (!empty($userId)) {
-  $dbConnection = buildDatabaseConnection($config);
+  $dbConnection = build_database_connection($config);
 
 
   header('Content-Type: text/csv');

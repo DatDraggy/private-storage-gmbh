@@ -12,7 +12,8 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if ($statement->rowCount() === 1) {
+if ($statement->rowCount() === 1)
+{
   $rightId = $row['right_id'];
 }
 include("templates/header.inc.php");
@@ -31,7 +32,8 @@ include("templates/header.inc.php");
 
   
   <?php
-  if(in_array($user['right_id'], $config['administration']['userBilling'])) {
+  if(in_array($user['right_id'], $config['administration']['userBilling']))
+  {
     ?>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -39,7 +41,7 @@ include("templates/header.inc.php");
             <a href="exportData.php" class="del_btn">CSV Export</a>
         </div>
 	<div class="panel-body">
-        <table class="table table-bordered">
+   <table class="table table-bordered">
 		<thead>
         <tr>
           <th>Position</th>
@@ -50,15 +52,16 @@ include("templates/header.inc.php");
         </tr>
 		</thead>
 		<tbody>
-        <form action="action.php" method="post">
-        </form>
+      <form action="action.php" method="post">
+      </form>
         <?php
         //get records from database
         $stmt = $pdo->prepare("SELECT user_id, preis, kennung FROM abrechnung");
         $stmt->execute();
         $rows = $stmt->fetchAll();
         $count = 1;
-        foreach ($rows as $row) { ?>
+        foreach ($rows as $row)
+        { ?>
           <tr>
             <td><?php echo $count++; ?></td>
             <td><?php echo $row['user_id']; ?></td>
@@ -71,7 +74,8 @@ include("templates/header.inc.php");
           </tr>
         <?php
         }
-        if($stmt->rowCount() === 0) { ?>
+        if($stmt->rowCount() === 0)
+        { ?>
           <tr>
             <td colspan="5">Keine Buchungen zur Abrechnung vorhanden.....</td>
           </tr>

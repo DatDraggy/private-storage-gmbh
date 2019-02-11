@@ -1,8 +1,24 @@
 <?php
+/*
+ * Dateiname: passwordreset.php
+ * Autor: Dennis, Jason
+ *
+ * Version: 1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Passwort neu setzen bei vergessen
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
-if (!isset($_GET['userid']) || !isset($_GET['code'])) {
+if (!isset($_GET['userid']) || !isset($_GET['code']))
+{
   error("Leider wurde beim Aufruf dieser Website kein Code zum Zurücksetzen deines Passworts übermittelt");
 }
 
@@ -17,29 +33,36 @@ $result = $statement->execute(array('userid' => $userid));
 $user = $statement->fetch();
 
 //Überprüfe dass ein Nutzer gefunden wurde und dieser auch ein Passwortcode hat
-if ($user === null || $user['passwortcode'] === null) {
+if ($user === null || $user['passwortcode'] === null)
+{
   error("Der Benutzer wurde nicht gefunden oder hat kein neues Passwort angefordert.");
 }
 
-if ($user['passwortcode_time'] === null || strtotime($user['passwortcode_time']) < (time() - 24 * 3600)) {
+if ($user['passwortcode_time'] === null || strtotime($user['passwortcode_time']) < (time() - 24 * 3600))
+{
   error("Dein Code ist leider abgelaufen. Bitte benutze die Passwort vergessen Funktion erneut.");
 }
 
 
 //Überprüfe den Passwortcode
-if (sha1($code) != $user['passwortcode']) {
+if (sha1($code) != $user['passwortcode'])
+{
   error("Der übergebene Code war ungültig. Stell sicher, dass du den genauen Link in der URL aufgerufen hast. Solltest du mehrmals die Passwort-vergessen Funktion genutzt haben, so ruf den Link in der neuesten E-Mail auf.");
 }
 
 //Der Code war korrekt, der Nutzer darf ein neues Passwort eingeben
 
-if (isset($_GET['send'])) {
+if (isset($_GET['send']))
+{
   $passwort = $_POST['passwort'];
   $passwort2 = $_POST['passwort2'];
 
-  if ($passwort != $passwort2) {
+  if ($passwort != $passwort2)
+  {
     $msg = "Bitte identische Passwörter eingeben";
-  } else { //Speichere neues Passwort und lösche den Code
+  }
+  else
+  { //Speichere neues Passwort und lösche den Code
     $passworthash = password_hash($passwort, PASSWORD_DEFAULT);
     $statement = $pdo->prepare("UPDATE users SET passwort = :passworthash, passwortcode = NULL, passwortcode_time = NULL WHERE id = :userid");
     $result = $statement->execute(array(
@@ -47,7 +70,8 @@ if (isset($_GET['send'])) {
       'userid' => $userid
     ));
 
-    if ($result) {
+    if ($result)
+    {
       $msg = "Dein Passwort wurde erfolgreich geändert";
       $showForm = false;
     }
@@ -61,7 +85,8 @@ include("templates/header.inc.php");
 
     <h1>Neues Passwort vergeben</h1>
     <?php
-    if (isset($msg)) {
+    if (isset($msg))
+    {
       echo $msg;
     }
 

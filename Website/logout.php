@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: logout.php
+ * Autor: Marlin
+ *
+ * Version: 1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Zerstört session und loggt user aus
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 session_destroy();
 unset($_SESSION['userid']);

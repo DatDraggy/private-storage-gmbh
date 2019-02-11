@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: internal.php
+ * Autor: Marlin
+ *
+ * Version: 
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt:
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -12,7 +27,8 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if ($statement->rowCount() === 1) {
+if ($statement->rowCount() === 1)
+{
   $rightId = $row['right_id'];
 }
 include("templates/header.inc.php");
@@ -25,7 +41,8 @@ include("templates/header.inc.php");
   Hallo <?php echo htmlentities($user['vorname']); ?>,<br>
   Herzlich Willkommen im internen Bereich!<br><br>
   <?php
-  if (in_array($user['right_id'], $config['administration']['userOverview'])) {
+  if (in_array($user['right_id'], $config['administration']['userOverview']))
+  {
     ?>
     <div class="panel panel-default">
 
@@ -40,7 +57,8 @@ include("templates/header.inc.php");
         $statement = $pdo->prepare("SELECT * FROM users ORDER BY id");
         $result = $statement->execute();
         $count = 1;
-        while ($row = $statement->fetch()) { ?>
+        while ($row = $statement->fetch())
+        { ?>
           <tr>
             <td><?php echo $count++; ?></td>
             <td><?php echo $row['vorname']; ?></td>

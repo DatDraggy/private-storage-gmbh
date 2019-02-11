@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: user_delete.php
+ * Autor: Marlin
+ *
+ * Version: 1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: User löschen
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -13,13 +28,17 @@ $statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :
 $statement->bindParam(':userId', $userId);
 $result = $statement->execute();
 $row = $statement->fetch();
-if ($statement->rowCount() === 1) {
+if ($statement->rowCount() === 1)
+{
   $rightId = $row['right_id'];
-} else {
+}
+else
+{
   die();//Keine RightID gefunden, nicht autorisiert
 }
 
-if (in_array($rightId, $config['administration']['userDelete'])) {
+if (in_array($rightId, $config['administration']['userDelete']))
+{
   //User delete, Belegte Räume befreien
   $statement = $pdo->prepare("DELETE FROM users WHERE id = :userId");
   $statement->bindParam(':userId', $targetUserId);

@@ -1,17 +1,33 @@
 <?php
+/*
+ * Dateiname: register.php
+ * Autor: Dennis, Marlin, Jason
+ *
+ * Version:
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt:
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/shared.inc.php");
 require_once("inc/functions.inc.php");
 include("templates/header.inc.php");
-$pdo = buildDatabaseConnection($config);
+$pdo = build_database_connection($config);
 ?>
   <div class="container main-container registration-form">
     <h1>Registrierung</h1>
     <?php
     $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden soll
 
-    if (isset($_GET['register'])) {
+    if (isset($_GET['register']))
+    {
       $error = false;
       $vorname = trim($_POST['vorname']);
       $nachname = trim($_POST['nachname']);
@@ -19,38 +35,45 @@ $pdo = buildDatabaseConnection($config);
       $passwort = $_POST['passwort'];
       $passwort2 = $_POST['passwort2'];
 
-      if (empty($vorname) || empty($nachname) || empty($email)) {
+      if (empty($vorname) || empty($nachname) || empty($email))
+      {
         echo 'Bitte alle Felder ausfüllen<br>';
         $error = true;
       }
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+      {
         echo 'Bitte eine gültige E-Mail-Adresse eingeben<br>';
         $error = true;
       }
-      if (strlen($passwort) == 0) {
+      if (strlen($passwort) == 0)
+      {
         echo 'Bitte ein Passwort angeben<br>';
         $error = true;
       }
-      if ($passwort != $passwort2) {
+      if ($passwort != $passwort2)
+      {
         echo 'Die Passwörter müssen übereinstimmen<br>';
         $error = true;
       }
 
       //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
-      if (!$error) {
+      if (!$error)
+      {
         $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $result = $statement->execute(array('email' => $email));
         $user = $statement->fetch();
 
-        if ($user !== false) {
+        if ($user !== false)
+        {
           echo 'Diese E-Mail-Adresse ist bereits vergeben<br>';
           $error = true;
         }
       }
 
       //Keine Fehler, wir können den Nutzer registrieren
-      if (!$error) {
+      if (!$error)
+      {
         $passwort_hash = password_hash($passwort, PASSWORD_DEFAULT);
 
         $statement = $pdo->prepare("INSERT INTO users (email, passwort, vorname, nachname) VALUES (:email, :passwort, :vorname, :nachname)");
@@ -61,16 +84,20 @@ $pdo = buildDatabaseConnection($config);
           'nachname' => $nachname
         ));
 
-        if ($result) {
+        if ($result)
+        {
           echo 'Du wurdest erfolgreich registriert. <a href="login.php">Zum Login</a>';
           $showFormular = false;
-        } else {
+        }
+        else
+        {
           echo 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';
         }
       }
     }
 
-    if ($showFormular) {
+    if ($showFormular)
+    {
       ?>
 
       <form action="?register=1" method="post">
