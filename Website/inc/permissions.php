@@ -26,6 +26,7 @@ $config['administration']['userEdit'] = array(
   3
 );
 $config['administration']['userEditBank'] = array(3);
+$config['administration']['canImport'] = array(3);
 $config['administration']['userEditRank'] = array(1);
 $config['administration']['userView'] = array(
   1,
@@ -51,3 +52,4 @@ $config['administration']['userOverview'] = array(
 $config['administration']['userCsv'] = array(3);
 $config['administration']['userBilling'] = array(3);
 $config['administration']['userBestaetigung'] = array(3);
+$config['administration']['roomOverview'] = array(1,2,3);

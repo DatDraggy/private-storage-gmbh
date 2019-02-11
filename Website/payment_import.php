@@ -18,12 +18,16 @@
  */
 require_once(__DIR__ . '/inc/config.inc.php');
 require_once(__DIR__ . '/inc/functions.inc.php');
-$dbConnection = build_database_connection($config);
-$rightId = check_user()['right_id'];
+require_once(__DIR__ . '/inc/permissions.php');
+session_start();
+$user = check_user();
+$rightId = $user['right_id'];
+
 if (!in_array($rightId, $config['administration']['canImport']))
 {
   die();
 }
+
 if (isset($_POST["Import"]))
 {
   if ($_FILES["file"]["size"] > 0)
@@ -43,16 +47,16 @@ if (isset($_POST["Import"]))
         $num = count($data);
         echo "<p> $num Felder in Zeile $row <br /></p>\n";
         $row++;
-        $date = $data[0];
+        $time = $data[0];
         $amount = $data[1];
         $userId = $data[2];
-        echo $date . ' ' . $amount . ' ' . $userId;
+        $kennung = $data[3];
 
         try
         {
-          $stmt = $dbConnection->prepare('INSERT INTO abrechnung(user_id, preis, kennung, time) VALUES(:userId, :amount, :kennung, :date)');
+          $stmt = $pdo->prepare('INSERT INTO abrechnung(user_id, preis, kennung, time) VALUES(:userId, :amount, :kennung, :time)');
           $stmt->bindParam(':userId', $userId);
-          $stmt->bindParam(':preis', $preis);
+          $stmt->bindParam(':amount', $amount);
           $stmt->bindParam(':kennung', $kennung);
           $stmt->bindParam(':time', $time);
           $stmt->execute();
@@ -64,6 +68,7 @@ if (isset($_POST["Import"]))
         }
       }
       fclose($handle);
+      header('Location: billing.php');
     }
   }
 }

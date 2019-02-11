@@ -79,7 +79,7 @@ foreach ($rows as $row)
               ticks: {
                 beginAtZero: true,
                 maxTicksLimit: Math.min(11, 1 + Math.max.apply(null, data)),
-                max: data.length + 1
+                max: Math.max(...data) + 1
               },
               scaleLabel: {
                 display: true,

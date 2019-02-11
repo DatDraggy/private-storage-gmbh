@@ -87,7 +87,8 @@ function check_user($userId = '')
 
   $statement = $pdo->prepare("SELECT users.id, adressen.firma, users.vorname, users.nachname, adressen.strasse, adressen.hausnr, adressen.plz, adressen.ort, user_bankdaten.iban, user_bankdaten.bic, user_bankdaten.bestaetigt, users.email, user_personal.right_id
     FROM users INNER JOIN user_bankdaten ON users.id = user_bankdaten.id INNER JOIN adressen ON users.id = adressen.user_id LEFT OUTER JOIN user_personal ON user_personal.user_id = users.id WHERE users.id = :id");
-  $result = $statement->execute(array(':id' => $userId));
+  $statement->bindParam(':id', $userId);
+  $statement->execute();
   $user = $statement->fetch();
   return $user;
 }

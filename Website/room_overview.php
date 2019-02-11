@@ -55,8 +55,7 @@ else if ($_POST['action'] == 'delete' && !empty($_POST['roomid']))
   if ($statement->rowCount() == 1)
   {
     $endOfMonth = strtotime(date("Y-m-t"));
-    $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 0, bis = :bis WHERE aktiv = 1 AND kennung = :kennung');
-    $statement->bindParam(':bis', $endOfMonth);
+    $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 0, bis = UNIX_TIMESTAMP() WHERE aktiv = 1 AND kennung = :kennung');
     $statement->bindParam(':kennung', $_POST['roomid']);
     $statement->execute();
   }

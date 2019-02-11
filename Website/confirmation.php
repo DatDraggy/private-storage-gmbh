@@ -33,7 +33,7 @@ if (!empty($_POST['roomcode']) && !empty($_POST['roomid']) && $_POST['action'] =
     $row = $statement->fetch();
     if ($statement->rowCount() == 1)
     {
-      $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 1 WHERE kennung = :kennung');
+      $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 1 WHERE kennung = :kennung AND aktiv = 0 AND bis = 0');
       $statement->bindParam(':kennung', $_POST['roomid']);
       $statement->execute();
     }
@@ -47,7 +47,7 @@ else if ($_POST['action'] == 'delete' && !empty($_POST['roomid']))
   $row = $statement->fetch();
   if ($statement->rowCount() == 1)
   {
-    $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 0, bis = UNIX_TIMESTAMP() WHERE kennung = :kennung');
+    $statement = $pdo->prepare('UPDATE bestellungen SET aktiv = 0, bis = UNIX_TIMESTAMP() WHERE kennung = :kennung AND aktiv = 0 AND bis = 0');
     $statement->bindParam(':kennung', $_POST['roomid']);
     $statement->execute();
   }
@@ -81,7 +81,7 @@ include("templates/header.inc.php");
       while ($row = $statement->fetch())
       { ?>
         <tr>
-          <td><? echo $row['user_id'] ?></td>
+          <td><?php echo $row['user_id'] ?></td>
           <td><?php echo $row['kennung']; ?></td>
           <td><?php echo $row['preis']; ?>€ p.M.</td>
           <td><?php echo $row['code']; ?></td>
