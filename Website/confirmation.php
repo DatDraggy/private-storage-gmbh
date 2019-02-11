@@ -77,8 +77,7 @@ include("templates/header.inc.php");
         <th>Code</th>
       </tr>
       <?php
-      $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE user_id = :userId AND aktiv = 0 AND bis = 0");
-      $statement->bindParam(':userId', $userId);
+      $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE aktiv = 0 AND bis = 0");
       $result = $statement->execute();
       $count = 1;
       while ($row = $statement->fetch())
