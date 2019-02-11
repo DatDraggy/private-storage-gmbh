@@ -19,6 +19,7 @@
 require_once(__DIR__ . '/inc/config.inc.php');
 require_once(__DIR__ . '/inc/functions.inc.php');
 require_once(__DIR__ . '/inc/permissions.php');
+
 session_start();
 $user = check_user();
 $rightId = $user['right_id'];
