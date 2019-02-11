@@ -35,7 +35,7 @@ if (is_checked_in())
   }
   catch (PDOException $e)
   {
-    notifyOnException('Database Select', $config, $sql, $e);
+    notify_on_exception('Database Select', $config, $sql, $e);
   }
 
   if ($stmt->rowCount() === 0)
@@ -55,7 +55,7 @@ if (is_checked_in())
     }
     catch (PDOException $e)
     {
-      notifyOnException('Database Select', $config, $sql, $e);
+      notify_on_exception('Database Select', $config, $sql, $e);
     }
     //ToDo: Wenn 5_1 in Bestellungen und nicht ausgelaufen > Ergebnis 5_2, 5_3, 5_4
     if ($stmt->rowCount() === 0)
@@ -76,7 +76,7 @@ if (is_checked_in())
       }
       catch (PDOException $e)
       {
-        notifyOnException('Database Select', $config, $sql, $e);
+        notify_on_exception('Database Select', $config, $sql, $e);
       }
       $code = substr(str_shuffle('123456789'), 0, 4);
       try
@@ -89,7 +89,7 @@ if (is_checked_in())
       }
       catch (PDOException $e)
       {
-        notifyOnException('Database Select', $config, $sql, $e);
+        notify_on_exception('Database Select', $config, $sql, $e);
       }
       //Bestellung Erfolgreich
       echo 'Ihrem Kundenkonto wurde der Raum zugewiesen';

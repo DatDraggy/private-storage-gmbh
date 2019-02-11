@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: export_data.php
+ * Autor: Dennis
+ *
+ * Version: 1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Header für jede Datei
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 require_once("inc/permissions.php");
 ?>
 <!DOCTYPE html>

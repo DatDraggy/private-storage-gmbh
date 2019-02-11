@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: error.php
+ * Autor: Dennis, Marlin
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Zeigt Errorcodes und leitet weiter
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 require_once(__DIR__ . '/inc/config.inc.php');
 require_once(__DIR__ . '/inc/errors.inc.php');
 if (isset($_GET['error']))

@@ -1,10 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dejul
- * Date: 10.12.2018
- * Time: 12:44
+/*
+ * Dateiname: permissions.php
+ * Autor: Marlin, Dennis, Jason
  *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Rechtesystem, wer was machen darf
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
+/*
  * 0 = Kunde 3
  * 1 = Geschäftsleitung 41
  * 2 = Admin 35

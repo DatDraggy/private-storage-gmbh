@@ -1,14 +1,15 @@
 <?php
 /*
  * Dateiname: internal.php
- * Autor: Marlin
+ * Autor: Marlin, Dennis, Jason
  *
- * Version: 
+ * Version: 1.1
  * letzte Änderung: 11. Februar 2019
  *
- * Inhalt:
+ * Inhalt: Zeigt alle User für Mitarbeiter an
  *
  * Verwendete Funktionen:
+ *   check_user
  *
  * Definierte Funktionen:
  *
@@ -23,14 +24,8 @@ require_once("inc/permissions.php");
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $userId = $_SESSION['userid'];
-$statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
-$statement->bindParam(':userId', $userId);
-$result = $statement->execute();
-$row = $statement->fetch();
-if ($statement->rowCount() === 1)
-{
-  $rightId = $row['right_id'];
-}
+$rightId = $user['right_id'];
+
 include("templates/header.inc.php");
 ?>
 

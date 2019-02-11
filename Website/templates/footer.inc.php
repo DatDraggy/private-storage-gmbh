@@ -7,6 +7,23 @@
       <div class="divide20"></div>
       <div class="pricing row">
         <?php
+        /*
+         * Dateiname: footer.inc.php
+         * Autor: Dennis, Marlin
+         *
+         * Version: 1.2
+         * letzte Änderung: 11. Februar 2019
+         *
+         * Inhalt: Footer für Seiten mit Raumanzeige
+         *
+         * Verwendete Funktionen:
+         *   build_database_connection
+         *   notify_on_exception
+         *
+         * Definierte Funktionen:
+         *
+         * globale Variablen:
+         */
         require_once(__DIR__ . '/../inc/shared.inc.php');
         $dbConnection = build_database_connection($config);
         try
@@ -18,7 +35,7 @@
         }
         catch (PDOException $e)
         {
-          notifyOnException('Database Select', $config, $sql, $e);
+          notify_on_exception('Database Select', $config, $sql, $e);
         }
         //"SELECT kennung FROM raeume WHERE groesse = :groesse AND kennung NOT IN (SELECT kennung FROM bestellungen WHERE aktiv = 1) ORDER BY nummer ASC LIMIT 1"
         foreach ($rows as $row)
@@ -36,7 +53,7 @@
           }
           catch (PDOException $e)
           {
-            notifyOnException('Database Select', $config, $sql, $e);
+            notify_on_exception('Database Select', $config, $sql, $e);
           }
           ?>
           <div class="col-sm-4">

@@ -1,10 +1,43 @@
 <?php
+/*
+ * Dateiname: internal_save.php
+ * Autor: Marlin, Dennis, Jason
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Funktionssammlung
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *   check_user
+ *   allowed_to_view_user
+ *   error
+ *   get_site_url
+ *   random_string
+ *   is_checked_in
+ *
+ * globale Variablen:
+ */
 require_once(__DIR__ . '/config.inc.php');
 require_once(__DIR__ . '/shared.inc.php');
 
 include_once("password.inc.php");
 $pdo = build_database_connection($config);
 
+/*
+ * Funktion: check_user
+ * Beschreibung: Prüft ob User Valide und existent und gibt Datenbankdaten zurück
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *   userId
+ *
+ * Rückgabewert:
+ *    array (Datenbankdaten)
+ */
 function check_user($userId = '')
 {
   global $pdo;
@@ -59,6 +92,18 @@ function check_user($userId = '')
   return $user;
 }
 
+/*
+ * Funktion: allowed_to_view_user
+ * Beschreibung: Prüft ob User erlaubnis zum editieren von user ist
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *   userId
+ *
+ * Rückgabewert:
+ *   boolean (True, wenn erlaubt)
+ */
 function allowed_to_view_user($userId)
 {
   global $config;
@@ -78,16 +123,32 @@ function allowed_to_view_user($userId)
   }
 }
 
-/**
- * Returns true when the user is checked in, else false
+/*
+ * Funktion: is_checked_in
+ * Beschreibung: Gibt boolean zurück ob user eingeloggt
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *
+ * Rückgabewert:
+ *  boolean (Eingeloggt oder nicht)
  */
 function is_checked_in()
 {
   return isset($_SESSION['userid']);
 }
 
-/**
- * Returns a random string
+/*
+ * Funktion: random_string
+ * Beschreibung: Gibt zufällig generierten string zurück
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *
+ * Rückgabewert:
+ *  string (Zufällige Zeichen)
  */
 function random_string()
 {
@@ -109,8 +170,16 @@ function random_string()
   return $str;
 }
 
-/**
- * Returns the URL to the site without the script name
+/*
+ * Funktion: get_site_url
+ * Beschreibung: Derzeitige URL Zurückgeben
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *
+ * Rückgabewert:
+ *  string (Gibt URL zurückt)
  */
 function get_site_url()
 {
@@ -118,8 +187,16 @@ function get_site_url()
   return $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
 }
 
-/**
- * Outputs an error message and stops the further exectution of the script.
+/*
+ * Funktion: error
+ * Beschreibung: Zeigt user error nachricht
+ *
+ * Verwendete Funktionen:
+ *
+ * Parameter:
+ *   String (Error Nachricht)
+ *
+ * Rückgabewert:
  */
 function error($error_msg)
 {

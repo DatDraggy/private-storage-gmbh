@@ -1,4 +1,20 @@
 <?php
+/*
+ * Dateiname: export_data.php
+ * Autor: Dennis, Marlin
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Exportiert Zahlungen ins CSV Format
+ *
+ * Verwendete Funktionen:
+ *   check_user
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 //include database configuration file
 require_once(__DIR__ . '/inc/config.inc.php');
 $dbConnection = build_database_connection($config);

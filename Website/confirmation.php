@@ -1,4 +1,20 @@
 <?php
+/*
+ * Dateiname: confirmation.php
+ * Autor: Dennis, Marlin, Jason
+ *
+ * Version: 1.3
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Zeigt alle noch nicht bestätigte Bestellungen
+ *
+ * Verwendete Funktionen:
+ *   check_user
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -40,14 +56,7 @@ else if ($_POST['action'] == 'delete' && !empty($_POST['roomid']))
   }
 }
 
-$statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
-$statement->bindParam(':userId', $userId);
-$result = $statement->execute();
-$row = $statement->fetch();
-if ($statement->rowCount() === 1)
-{
-  $rightId = $row['right_id'];
-}
+$rightId = $user['right_id'];
 include("templates/header.inc.php");
 ?>
 

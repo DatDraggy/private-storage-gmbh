@@ -1,4 +1,20 @@
 <?php
+/*
+ * Dateiname: billing.php
+ * Autor: Marlin, Dennis
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Zahlungen und zu zahlendes anzeigen, importieren, exportieren
+ *
+ * Verwendete Funktionen:
+ *   check_user
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
@@ -8,14 +24,9 @@ require_once("inc/permissions.php");
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $userId = $_SESSION['userid'];
-$statement = $pdo->prepare("SELECT right_id FROM user_personal WHERE user_id = :userId");
-$statement->bindParam(':userId', $userId);
-$result = $statement->execute();
-$row = $statement->fetch();
-if ($statement->rowCount() === 1)
-{
-  $rightId = $row['right_id'];
-}
+
+$rightId = $user['right_id'];
+
 include("templates/header.inc.php");
 ?>
 
@@ -38,7 +49,7 @@ include("templates/header.inc.php");
     <div class="panel panel-default">
         <div class="panel-heading">
             Kundenabrechnung
-            <a href="exportData.php" class="del_btn">CSV Export</a>
+            <a href="export_data.php" class="del_btn">CSV Export</a>
         </div>
 	<div class="panel-body">
    <table class="table table-bordered">

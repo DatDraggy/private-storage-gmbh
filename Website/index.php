@@ -1,4 +1,19 @@
 <?php
+/*
+ * Dateiname: index.php
+ * Autor: Marlin, Dennis, Jason
+ *
+ * Version: 1.1
+ * letzte Änderung: 11. Februar 2019
+ *
+ * Inhalt: Startseite
+ *
+ * Verwendete Funktionen:
+ *
+ * Definierte Funktionen:
+ *
+ * globale Variablen:
+ */
 session_start();
 require_once("inc/config.inc.php");
 require_once("inc/functions.inc.php");
