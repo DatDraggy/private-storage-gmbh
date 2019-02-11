@@ -18,6 +18,7 @@
  */
 require_once(__DIR__ . '/inc/config.inc.php');
 require_once(__DIR__ . '/inc/functions.inc.php');
+require_once(__DIR__ . '/inc/permissions.php');
 $dbConnection = build_database_connection($config);
 $rightId = check_user()['right_id'];
 if (!in_array($rightId, $config['administration']['canImport']))
