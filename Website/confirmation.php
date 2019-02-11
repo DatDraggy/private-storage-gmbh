@@ -72,17 +72,19 @@ include("templates/header.inc.php");
 
     <table class="table">
       <tr>
+        <th>User ID</th>
         <th>Kennung</th>
         <th>Kosten</th>
         <th>Code</th>
       </tr>
       <?php
-      $statement = $pdo->prepare("SELECT bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE aktiv = 0 AND bis = 0");
+      $statement = $pdo->prepare("SELECT user_id, bestellungen.kennung, preis, code FROM bestellungen INNER JOIN raeume ON raeume.kennung = bestellungen.kennung INNER JOIN preise ON preise.groesse = raeume.groesse WHERE aktiv = 0 AND bis = 0");
       $result = $statement->execute();
       $count = 1;
       while ($row = $statement->fetch())
       { ?>
         <tr>
+          <td><? echo $row['user_id'] ?></td>
           <td><?php echo $row['kennung']; ?></td>
           <td><?php echo $row['preis']; ?>€ p.M.</td>
           <td><?php echo $row['code']; ?></td>
