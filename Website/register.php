@@ -136,5 +136,5 @@ $pdo = build_database_connection($config);
     ?>
   </div>
 <?php
-include("templates/footer.inc.php")
+include("templates/footer.inc2.php")
 ?>
