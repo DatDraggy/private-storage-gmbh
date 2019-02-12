@@ -24,10 +24,10 @@ $dbConnection = build_database_connection($config);
 //Der Aufruf von check_user() muss in alle internen Seiten eingebaut sein
 $user = check_user();
 $rightId = $user['right_id'];
-
+if(!in_array($rightId, $config['administration']['userBilling'])){die();}
 try
 {
-  $stmt = $dbConnection->prepare('SELECT * FROM zahlungen');
+  $stmt = $dbConnection->prepare('SELECT * FROM abrechnung WHERE bezahlt = 0');
   $stmt->execute();
   $rows = $stmt->fetchAll();
 }
@@ -35,12 +35,13 @@ catch (PDOException $e)
 {
   echo $e;
 }
-$csvdata = 'user_id,menge,datum' . "\n";
+$csvdata = 'datum,menge,user_id,kennung' . "\n";
 foreach ($rows as $row)
 {
+  $csvdata .= date('Y-m-d', $row['time']) . ',';
+  $csvdata .= $row['preis'] . ',';
   $csvdata .= $row['user_id'] . ',';
-  $csvdata .= $row['menge'] . ',';
-  $csvdata .= $row['datum'] . "\n";
+  $csvdata .= $row['kennung'] . "\n";
 }
 
 header("content-type: application/csv-tab-delimited-table");
