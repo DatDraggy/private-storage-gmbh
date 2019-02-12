@@ -48,7 +48,7 @@ if (isset($_POST["Import"]))
         $num = count($data);
         echo "<p> $num Felder in Zeile $row <br /></p>\n";
         $row++;
-        $time = $data[0];
+        $time = strtotime($data[0]);
         $amount = $data[1];
         $userId = $data[2];
         $kennung = $data[3];
@@ -60,6 +60,12 @@ if (isset($_POST["Import"]))
           $stmt->bindParam(':amount', $amount);
           $stmt->bindParam(':kennung', $kennung);
           $stmt->bindParam(':time', $time);
+          $stmt->execute();
+          $stmt = $pdo->prepare('INSERT INTO zahlungen(user_id, menge, datum) VALUES(:userId, :amount, :time)');
+          $stmt->bindParam(':userId', $userId);
+          $stmt->bindParam(':amount', $amount);
+          $stmt->bindParam(':kennung', $kennung);
+          $stmt->bindParam(':time', $data[0]);
           $stmt->execute();
         }
         catch (PDOException $e)
