@@ -1,10 +1,9 @@
 <?php
 /*
- * Dateiname: internal_save.php
- * Autor: Marlin, Dennis, Jason
+ * Autor: Dennis
  *
  * Version: 1.1
- * letzte Änderung: 11. Februar 2019
+ * letzte Änderung: 19. März 2019
  *
  * Inhalt: DB Funktionen
  *
